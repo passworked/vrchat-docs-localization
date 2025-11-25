@@ -1,13 +1,14 @@
 ---
-upstreamCommit: 66e5a0c1bb2b12b3de3d1341bb8de76083f7d070
+upstreamCommit: f1bf1da95129772851a2ddf4840a99de14271ff8
 ---
 
 # UdonSharp
 
-# Attributes
-All supported attributes in UdonSharp
+# 属性
 
-|                                                                                 | Attribute                                                                             |                                                                                      |
+UdonSharp 中支持的所有属性
+
+|                                                                                 | 属性                                                                                  |                                                                                      |
 | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | [Header](https://docs.unity3d.com/ScriptReference/HeaderAttribute.html)         | [HideInInspector](https://docs.unity3d.com/ScriptReference/HideInInspector.html)      | [NonSerialized](https://docs.microsoft.com/dotnet/api/system.nonserializedattribute) |
 | [SerializeField](https://docs.unity3d.com/ScriptReference/SerializeField.html)  | [Space](https://docs.unity3d.com/ScriptReference/SpaceAttribute.html)                 | [Tooltip](https://docs.unity3d.com/ScriptReference/TooltipAttribute.html)            |
@@ -15,13 +16,12 @@ All supported attributes in UdonSharp
 | [UdonSynced](#udonsynced)                                                       | [DefaultExecutionOrder](#defaultexecutionorder)                                       | [UdonBehaviourSyncMode](#udonbehavioursyncmode)                                      |
 | [RecursiveMethod](#recursivemethod)                                             | [FieldChangeCallback](#fieldchangecallback)                                           |
 
-
 ## UdonSynced
 `[UdonSynced]` / `[UdonSynced(UdonSyncMode)]`
 
-*See [Synced Variables](/udonsharp.docs.vrchat.com/vrchat-api#synced-variables) for variables that can be synced.*
+*查看 [同步变量](/udonsharp.docs.vrchat.com/vrchat-api#synced-variables) 获取可同步的变量。*
 
-### Example
+### 示例
 ```cs
 public class Example : UdonSharpBehaviour 
 {
@@ -29,27 +29,30 @@ public class Example : UdonSharpBehaviour
     public bool synchronizedBoolean;
 
     [UdonSynced(UdonSyncMode.Linear)]
-    // This float will be linearly interpolated
+    // 此 float 将以线性方式插值
     public float synchronizedFloat;
 }
 ```
 
 ### UdonSyncMode
+
 `UdonSharp.UdonSyncMode`
 
-| Name      | Summary                         |
-| --------- | ------------------------------- |
-| NotSynced |                                 |
-| None      | No interpolation (Default)      |
-| Linear    | Lerp                            |
-| Smooth    | *Some kind of smoothed syncing* |
+| 名称        | 描述         |
+| --------- | ---------- |
+| NotSynced | 未同步        |
+| None      | 无插值（默认）    |
+| Linear    | 线性插值       |
+| Smooth    | *某种平滑同步方式* |
 
 ## UdonBehaviourSyncMode
+
 `[UdonBehaviourSyncMode]` / `[UdonBehaviourSyncMode(BehaviourSyncMode)]`
 
-Enforces a chosen sync mode and performs additional validation on synced variables where appropriate.
+强制使用指定的同步模式，并在适当情况下对同步变量执行额外验证。
 
-### Example
+### 示例
+
 ```cs
 [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
 public class Example : UdonSharpBehaviour 
@@ -58,21 +61,23 @@ public class Example : UdonSharpBehaviour
 ```
 
 ### BehaviourSyncMode
+
 `UdonSharp.BehaviourSyncMode`
 
-| Name           | Summary                                                                                                                                                                                              |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Any            | Nothing is enforced and the behaviours can be set to either sync type by the user. This is the default when no attribute is specified.                                                               |
-| None           | Enforces no synced variables on the behaviour and hides the selection dropdown in the UI for the sync mode. Nothing is synced and SendCustomNetworkEvent will not work on the behaviour.             |
-| Continuous     | Synced variables will be updated automatically at a very frequent rate, but may not always reliably update to save bandwidth.                                                                        |
-| Manual         | Synced variables are updated manually by the user less frequently, but ensures that updates are reliable when requested.                                                                             |
-| NoVariableSync | Enforces that there are no synced variables on the behaviour, hides the sync mode selection dropdown, and allows you to use the behaviours on GameObjects that use either Manual or Continuous sync. |
+| 名称             | 描述                                                                         |
+| -------------- | -------------------------------------------------------------------------- |
+| Any            | 不强制同步模式，用户可自行选择同步类型。当未指定属性时为默认值。                                           |
+| None           | 不同步任何变量，并隐藏 UI 中的同步模式选择下拉框。此行为下 SendCustomNetworkEvent 无法使用。               |
+| Continuous     | 同步变量会以非常频繁的速率自动更新，但为了节省带宽可能并非总是可靠。                                         |
+| Manual         | 同步变量由用户手动更新，更新频率较低，但确保在请求时更新可靠。                                            |
+| NoVariableSync | 强制该行为上无同步变量，隐藏同步模式选择下拉框，同时允许在使用 Manual 或 Continuous 同步的 GameObject 上使用该行为。 |
 
 ## DefaultExecutionOrder
 
-Specifies the order that Update, LateUpdate, and FixedUpdate happen in relative to other UdonSharpBehaviours with an int. All behaviours are at 0 by default, the lower the int, the earlier their update happens. The int can be negative.
+指定 Update、LateUpdate 和 FixedUpdate 的执行顺序，相对于其他 UdonSharpBehaviour 的顺序。默认值为 0，数值越小，更新越早。数值可以为负。
 
-### Example
+### 示例
+
 ```cs
 [DefaultExecutionOrder(0)]
 public class Example : UdonSharpBehaviour 
@@ -81,11 +86,13 @@ public class Example : UdonSharpBehaviour
 ```
 
 ## RecursiveMethod
+
 `[RecursiveMethod]`
 
-Marks a method as callable recursively. This means the marked method can safely call itself on the same behaviour without issues. This does have a performance overhead, so only use it on methods that you know may be called recursively.
+标记一个方法可以递归调用。被标记的方法可以安全地在同一行为中调用自身。该属性会增加性能开销，因此仅在确实需要递归调用的方法上使用。
 
-### Example
+### 示例
+
 ```cs
 [RecursiveMethod]
 int Factorial(int input)
@@ -98,11 +105,13 @@ int Factorial(int input)
 ```
 
 ## FieldChangeCallback
+
 `[FieldChangeCallback(string)]`
 
-This is an attribute that you may put on a field in order to receive Udon variable change events. This attribute takes a string parameter that points to a property name on the behaviour. When this attribute is set on a field, any modification to the field via network sync or SetProgramVariable will call the target property's setter instead of setting the field. The property is usually expected to set the field in this case.
+用于在字段上设置，以便接收 Udon 变量变化事件。此属性接受一个字符串参数，该参数指向行为中的属性名。当此属性设置在字段上时，通过网络同步或 SetProgramVariable 修改字段会调用目标属性的 setter，而不是直接修改字段。通常属性会在 setter 中设置该字段。
 
-### Example
+### 示例
+
 ```cs
 using UdonSharp;
 using UnityEngine;
@@ -137,4 +146,4 @@ public class ExampleOfFieldChangeCallback: UdonSharpBehaviour
 }
 ```
 
-Note that in the above example, the Interact performs ```SyncedToggle = !SyncedToggle;``` rather than ```_syncedToggle = !_syncedToggle```. The latter won't work (this would not actually trigger the FieldChangeCallback). FieldChangeCallback only will cause SyncedToggle's setter to fire when either SetProgramVariable or a network sync updates the value of syncedToggle. It will not fire when the variable is set directly from inside the same UdonBehaviour. The property should always be used directly. UdonSharp will deliberately fail to compile if you attempt to set ```_syncedToggle``` from outside the UdonBehaviour. In this case, the property should be used or SetProgramVariable should be used explicitly.
+注意，上例中 Interact 执行的是 `SyncedToggle = !SyncedToggle;` 而不是 `_syncedToggle = !_syncedToggle`。后者无法触发 FieldChangeCallback。FieldChangeCallback 只会在 SetProgramVariable 或网络同步更新同步变量时触发属性的 setter。不要直接在同一 UdonBehaviour 内部修改字段，应始终使用属性或显式使用 SetProgramVariable。UdonSharp 会故意在尝试从行为外部设置 `_syncedToggle` 时编译失败。

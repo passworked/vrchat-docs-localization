@@ -1,61 +1,66 @@
 ---
-upstreamCommit: 66e5a0c1bb2b12b3de3d1341bb8de76083f7d070
+upstreamCommit: f1bf1da95129772851a2ddf4840a99de14271ff8
 ---
 
 <!-- zhlint disabled -->
 
-# Community Resources
+# Community Resources（社区资源）
 
-## Tutorials and info
+## Tutorials and info（教程与资料）
 
-### はつぇさんのブログ
-- [U# 入門 ①](https://hatuxes.hatenablog.jp/entry/2020/04/05/013310)
-- [U# 入門 ②](https://hatuxes.hatenablog.jp/entry/2020/04/05/013323)
-- [U# 入門 ③](https://hatuxes.hatenablog.jp/entry/2020/04/05/013336)
-- [U# 入門 おまけ](https://hatuxes.hatenablog.jp/entry/2020/04/05/013348)
+### はつぇさん的博客
+- [U# 入门 ①](https://hatuxes.hatenablog.jp/entry/2020/04/05/013310)
+- [U# 入门 ②](https://hatuxes.hatenablog.jp/entry/2020/04/05/013323)
+- [U# 入门 ③](https://hatuxes.hatenablog.jp/entry/2020/04/05/013336)
+- [U# 入门 额外篇](https://hatuxes.hatenablog.jp/entry/2020/04/05/013348)
 
-### やぎりさんのブログ
-- [UdonSharp走り書きメモ.cs（執筆中、順次更新）](https://yagiri000.hatenablog.com/entry/2020/04/04/162312)
+### やぎりさん的博客
+- [UdonSharp 笔记（撰写中，持续更新）](https://yagiri000.hatenablog.com/entry/2020/04/04/162312)
 
-### Vowgan's Tutorial Videos
+### Vowgan 的教程视频
 
-These videos start with the graph in the first half and cover U# in the second half
-- [VRChat Udon Tutorial | Basic Buttons](https://www.youtube.com/watch?v=GWv3zloRWY4)
-- [VRChat Udon Tutorial | Contextual Buttons](https://www.youtube.com/watch?v=01a5qO60qlo)
-- [VRChat Udon Tutorial | Jumping and PlayerMods](https://www.youtube.com/watch?v=OventaglGCY)
+这些视频前半部分讲解图形编程（Udon Graph），后半部分讲解 UdonSharp。
+- [VRChat Udon 教程 | 基础按钮](https://www.youtube.com/watch?v=GWv3zloRWY4)
+- [VRChat Udon 教程 | 上下文按钮](https://www.youtube.com/watch?v=01a5qO60qlo)
+- [VRChat Udon 教程 | 跳跃与玩家属性修改](https://www.youtube.com/watch?v=OventaglGCY)
 
-## Tools
-### orels1's UdonToolKit
-Provides a number of useful utility behaviours and a much more powerful attribute system for making custom inspectors for your U# behaviours.
+## Tools（工具）
+
+### orels1 的 UdonToolKit
+提供一系列实用的工具性行为（utility behaviours）以及更高级的 attribute 系统，用于为 U# 脚本制作自定义 Inspector。
 
 https://github.com/orels1/UdonToolkit/
 
-### cannorin's extern search
-This is fairly out of date at this point since it hasn't had the node registry updated in a while.
-This is a web tool that lets you search what functions are available to Udon
+### cannorin 的 extern search
+由于节点注册表很久未更新，这个工具现在已经有些过时。  
+这是一个网页工具，可用来搜索 Udon 目前可用的函数。
+
 https://7colou.red/UdonExternSearch/
 
 ### CyanEmu
-CyanEmu is a VRChat client emulator that enables you to test and debug your Udon (and SDK2) VRChat worlds directly in Unity. It comes with a desktop player controller that can use interacts, grab pickups, sit in chairs, respawn, etc.
+CyanEmu 是一个 VRChat 客户端模拟器，可让你在 Unity 中直接测试和调试 Udon（以及 SDK2）世界。  
+它提供桌面玩家控制器，可执行交互、抓取、坐下、回出生点等模拟操作。
 
 https://github.com/CyanLaser/CyanEmu
 
-### Phasedragon's Input table
+### Phasedragon 的输入表（Input Table）
 
-This lists all of the inputs that VRChat currently binds and how they work with each VR controller. Inputs that return true or false can be read using `Input.GetButton()` with the listed name for the input. Inputs that return somewhere in the range -1 to 1 or 0 to 1 can be read using `Input.GetAxis()` or `Input.GetAxisRaw()`
+该表列出了 VRChat 当前绑定的所有输入，并说明它们在不同 VR 控制器上的行为方式。  
+返回 true/false 的输入可通过 `Input.GetButton()` 获取；  
+返回 -1~1 或 0~1 的输入可通过 `Input.GetAxis()` 或 `Input.GetAxisRaw()` 获取。
 
 https://docs.google.com/spreadsheets/d/1_iF0NjJniTnQn-knCjb5nLh6rlLfW_QKM19wtSW_S9w/edit#gid=1150012376
 
-If you would like to test a controller not on the list, you can go to my input test world
+如果你想测试不在表中的控制器，可以访问此输入测试世界：
 
 https://vrchat.com/home/world/wrld_f8d5f7e4-185c-4b82-8ecb-8ae0c7953085
 
-### Shatoo's Udon editor debug 
-Provides a UI to call built-in events with arguments
+### Shatoo 的 Udon 编辑器调试器
+提供一个 UI，可用来调用内置事件并传入参数。
 
 https://shatoo.booth.pm/items/1958756
 
-### Jordo's Haptics Testing world
-Provides 3 sliders to adjust haptics and test how they feel for later use in your code.
+### Jordo 的触觉反馈测试世界（Haptics Testing World）
+提供三个滑块用于调整触觉强度，并可以立即测试效果，方便之后在代码中应用。
 
 https://vrchat.com/home/launch?worldId=wrld_7f010f63-7a82-4668-b1a5-412b57fb08f5&instanceId=0

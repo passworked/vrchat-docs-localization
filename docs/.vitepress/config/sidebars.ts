@@ -360,10 +360,10 @@ export function udonSharpDocsSidebar(): DefaultTheme.SidebarItem[] {
       collapsed: true,
       items: [
         { text: 'Setup', link: '/udonsharp.docs.vrchat.com/setup' },
-        { text: 'Examples', link: '/udonsharp.docs.vrchat.com/examples' },
-        { text: 'Community Resources', link: '/udonsharp.docs.vrchat.com/community-resources' },
-        { text: 'Configuration', link: '/udonsharp.docs.vrchat.com/configuration' },
-        { text: 'Migration', link: '/udonsharp.docs.vrchat.com/migration' },
+        { text: '示例', link: '/udonsharp.docs.vrchat.com/examples' },
+        { text: '社区资源', link: '/udonsharp.docs.vrchat.com/community-resources' },
+        { text: '配置', link: '/udonsharp.docs.vrchat.com/configuration' },
+        { text: '迁移', link: '/udonsharp.docs.vrchat.com/migration' },
         { text: '常见问题', link: '/udonsharp.docs.vrchat.com/frequently-asked-questions' },
       ]
     },

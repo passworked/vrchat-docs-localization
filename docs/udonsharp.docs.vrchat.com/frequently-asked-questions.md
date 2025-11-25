@@ -1,42 +1,48 @@
 ---
-upstreamCommit: 66e5a0c1bb2b12b3de3d1341bb8de76083f7d070
+upstreamCommit: f1bf1da95129772851a2ddf4840a99de14271ff8
 ---
 
-# Frequently Asked Questions
+# 常见问题
 
-### Questions
-* [Does UdonSharp Support X feature?](#does-udonsharp-support-x-feature)
-* [Are prefabs supported fully?](#are-prefabs-supported-fully)
-* [Can I access the player camera?](#can-i-access-the-player-camera)
-* [Can I have more than one UdonSharp Udon Behavior on a GameObject?](#can-i-have-more-than-one-udonsharp-udon-behavior-on-a-gameobject)
-* [I'm starting from scratch and need to use C# tutorials. What common aspects of C# don't work in UdonSharp?](#im-starting-from-scratch-and-need-to-use-c-tutorials-what-common-aspects-of-c-dont-work-in-udonsharp)
+### 问题列表
+* [UdonSharp 支持 X 功能吗？](#udonsharp-支持-x-功能吗)
+* [Prefab 是否完全支持？](#prefab-是否完全支持)
+* [我可以访问玩家摄像头吗？](#我可以访问玩家摄像头吗)
+* [一个 GameObject 上可以有多个 UdonSharp Udon Behaviour 吗？](#一个-gameobject-上可以有多个-udonsharp-udon-behavior-吗)
+* [我从零开始，需要使用 C# 教程。UdonSharp 中 C# 的哪些常用特性无法使用？](#我从零开始-需要使用-c-教程-udonsharp-中-c-的哪些常用特性无法使用)
+
 ---
 
-### Does UdonSharp support X feature?
-If Udon supports it, then so does UdonSharp.
+### UdonSharp 支持 X 功能吗？
+如果 Udon 支持该功能，UdonSharp 也同样支持。
 
-_Check [Class exposure tree](https://github.com/Merlin-san/UdonSharp/wiki/class-exposure-tree)_
+_参考 [Class exposure tree](https://github.com/Merlin-san/UdonSharp/wiki/class-exposure-tree)_
 
-### Are prefabs supported fully?
-You can use prefabs with Udon and U#, but changes to serialized fields on those prefabs will not propagate to instances of the prefab correctly due to limitations in Unity.
+### Prefab 是否完全支持？
+你可以在 Udon 和 U# 中使用 Prefab，但由于 Unity 的限制，对 Prefab 的序列化字段修改不会正确传播到其实例上。
 
-### Can I access the player camera?
-No, you can not access the player's camera. You can, however, get the head position and rotation.
+### 我可以访问玩家摄像头吗？
+不可以直接访问玩家摄像头。不过，你可以获取玩家头部的位置和旋转。
 
-See [VRCPlayerApi.GetTrackingData](https://github.com/Merlin-san/UdonSharp/wiki/vrchat-api#vrchatplayerapi)
- 
-`Vector3 headPos = localPlayer.GetTrackingData(TrackingData.Head).position`
+参考 [VRCPlayerApi.GetTrackingData](https://github.com/Merlin-san/UdonSharp/wiki/vrchat-api#vrchatplayerapi)
 
-### Can I have more than one UdonSharp Udon Behavior on a GameObject?
-Yes.
+```cs
+Vector3 headPos = localPlayer.GetTrackingData(TrackingData.Head).position;
+````
 
-### I'm starting from scratch and need to use C# tutorials. What common aspects of C# don't work in UdonSharp?
-If you are learning UdonSharp and not familiar with C# already, you may run across some commonly used techniques that don't work in Udon and UdonSharp yet. These include, but are not limited to, the following:
-- Enums not already defined by Unity
-- Generic classes (`Class<T>`) and methods
-- Inheritance
-- Interfaces
-- Method overloads
-- Properties
+### 一个 GameObject 上可以有多个 UdonSharp Udon Behaviour 吗？
 
-The UdonSharp [readme](https://github.com/Merlin-san/UdonSharp/blob/master/README.md#c-features-supported) lists additional specific C# features that do not work.
+可以。
+
+### 我从零开始，需要使用 C# 教程。UdonSharp 中 C# 的哪些常用特性无法使用？
+
+如果你正在学习 UdonSharp 并且不熟悉 C#，你可能会遇到一些在 Udon 和 UdonSharp 中无法使用的常用技巧，包括但不限于：
+
+* Unity 未定义的枚举（Enums）
+* 泛型类 (`Class<T>`) 和方法
+* 继承（Inheritance）
+* 接口（Interfaces）
+* 方法重载（Method overloads）
+* 属性（Properties）
+
+更多无法使用的 C# 特性，请参考 UdonSharp [readme](https://github.com/Merlin-san/UdonSharp/blob/master/README.md#c-features-supported)。

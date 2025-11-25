@@ -1,79 +1,80 @@
 ---
-upstreamCommit: 09a1b3172578b1a3b886bbe184ab6c4cb65943c7
+upstreamCommit: f1bf1da95129772851a2ddf4840a99de14271ff8
 ---
 
 # UdonSharp
 
-## A compiler for compiling C# to Udon assembly
+## 一个将 C# 编译为 Udon 汇编的编译器
 
-UdonSharp is a compiler that compiles C# to Udon assembly. UdonSharp is not currently conformant to any version of the C# language specification, so there are many things that are not implemented or will not work.
+UdonSharp 是一个将 C# 编译为 Udon 汇编的编译器。UdonSharp 当前并未完全符合任何版本的 C# 语言规范，因此有许多功能尚未实现或无法正常工作。
 
-## C# features supported
-- Flow control
-    - Supports: `if` `else` `while` `for` `do` `foreach` `switch` `return` `break` `continue` `ternary operator (condition ? true : false)` `??`
-- Implicit and explicit type conversions
-- Arrays and array indexers
-- All builtin arithmetic operators
-- Conditional short circuiting `(true || CheckIfTrue())` will not execute CheckIfTrue()
+## 已支持的 C# 功能
+- 流程控制  
+    - 支持：`if` `else` `while` `for` `do` `foreach` `switch` `return` `break` `continue` `三元运算符 (condition ? true : false)` `??`
+- 隐式与显式类型转换
+- 数组与数组索引器
+- 所有内置算术运算符
+- 条件短路（例如 `(true || CheckIfTrue())` 不会执行 CheckIfTrue()）
 - `typeof()`
-- Extern methods with out or ref parameters (such as many variants of `Physics.Raycast()`)
-- User defined methods with parameters and return values, supports out/ref, extension methods, and `params`
-- User defined properties
-- Static user methods
-- UdonSharpBehaviour inheritence, virtual methods, etc.
-- Unity/Udon event callbacks with arguments. For instance, registering a OnPlayerJoined event with a VRCPlayerApi argument is valid.
-- String interpolation
-- Field initializers
-- Jagged arrays
-- Referencing other custom UdonSharpBehaviour classes, accessing fields, and calling methods on them
-- Recursive method calls are supported via the `[RecursiveMethod]` attribute
+- 带有 out/ref 参数的外部方法（如许多 `Physics.Raycast()` 的变体）
+- 用户自定义方法（带参数与返回值），支持 out/ref、扩展方法与 `params`
+- 用户自定义属性
+- 静态用户方法
+- UdonSharpBehaviour 继承、虚方法等特性
+- 带参数的 Unity/Udon 事件回调。例如，注册一个带 VRCPlayerApi 参数的 OnPlayerJoined 事件是有效的。
+- 字符串插值
+- 字段初始化器
+- 交错数组（Jagged arrays）
+- 引用其他自定义 UdonSharpBehaviour 类、访问字段、调用方法
+- 通过 `[RecursiveMethod]` 属性支持递归方法调用
 
-## Differences from regular Unity C# to note
-- For the best experience making UdonSharp scripts, make your scripts inherit from `UdonSharpBehaviour` instead of `MonoBehaviour`
-- If you need to call `GetComponent<UdonBehaviour>()` you will need to use `(UdonBehaviour)GetComponent(typeof(UdonBehaviour))` at the moment since the generic get component is not exposed for UdonBehaviour yet. `GetComponent<T>()` works for other Unity component types though.
-- Udon currently only supports array `[]` collections and by extension UdonSharp only supports arrays at the moment. It looks like they might support `List<T>` at some point, but it is not there yet.
-- Field initilizers are evaluated at compile time, if you have any init logic that depends on other objects in the scene you should use Start for this.
-- Use the `UdonSynced` attribute on fields that you want to sync.
-- Numeric casts are checked for overflow due to UdonVM limitations
-- The internal type of variables returned by `.GetType()` will not always match what you may expect since U# abstracts some types in order to make them work in Udon. For instance, any jagged array type will return a type of `object[]` instead of something like `int[][]` for a 2D int jagged array.
+## 与常规 Unity C# 的差异
+- 为获得最佳体验，请让脚本继承自 `UdonSharpBehaviour` 而不是 `MonoBehaviour`
+- 如果你需要调用 `GetComponent<UdonBehaviour>()`，目前必须写成 `(UdonBehaviour)GetComponent(typeof(UdonBehaviour))`，因为泛型 GetComponent 版本暂未对 UdonBehaviour 暴露。对其他 Unity 组件类型则可以正常使用 `GetComponent<T>()`。
+- Udon 当前只支持数组 `[]` 集合，因此 UdonSharp 目前也仅支持数组。看起来未来可能支持 `List<T>`，但现在还不行。
+- 字段初始化器在编译期执行，如果初始化逻辑依赖场景中其他对象，你应在 Start 中处理。
+- 使用 `UdonSynced` 属性标记你希望同步的字段。
+- 由于 UdonVM 限制，数值类型转换会进行溢出检查。
+- `.GetType()` 返回的变量内部类型可能不符合预期，因为 U# 会对一些类型做抽象以便在 Udon 中工作。例如，任何交错数组类型都会返回 `object[]`，而不是像 `int[][]` 这样的二维整型交错数组类型。
 
-## Udon bugs that affect U#
-- Mutating methods on structs do not modify the struct (this can be seen on things like calling Normalize() on a Vector3) https://vrchat.canny.io/vrchat-udon-closed-alpha-bugs/p/raysetorigin-and-raysetdirection-not-working
+## 影响 U# 的 Udon Bug
+- 结构体的可变方法不会修改结构体本身（例如调用 Vector3 的 Normalize() 无效）  
+  https://vrchat.canny.io/vrchat-udon-closed-alpha-bugs/p/raysetorigin-and-raysetdirection-not-working
 
-## Setup
+## 安装与配置
 
-### Requirements
+### 要求
 - Unity 2019.4.31f1
 - [VRCSDK3 + UdonSDK](https://vrchat.com/home/download)
-- The latest [release](https://github.com/vrchat-community/UdonSharp/releases/latest) of UdonSharp
+- 最新版本的 UdonSharp（从 [release](https://github.com/vrchat-community/UdonSharp/releases/latest) 下载）
 
-### Installation
-1. Read the getting started with Udon doc page /docs.vrchat.com/docs/getting-started-with-udon this has basic installation instructions for Udon.
-2. Install the latest version of the VRCSDK3 linked on the getting started.
-3. Get the latest release of UdonSharp from [here](https://github.com/vrchat-community/UdonSharp/releases/latest) and install it to your project.
+### 安装步骤
+1. 阅读 Udon 的入门文档 /docs.vrchat.com/docs/getting-started-with-udon，其中包含基本安装步骤。
+2. 安装入门文档中链接的最新版本 VRCSDK3。
+3. 从 [这里](https://github.com/vrchat-community/UdonSharp/releases/latest) 获取 UdonSharp 最新版本并安装到你的项目中。
 
-### Getting started
-1. Make a new object in your scene
-2. Add an `Udon Behaviour` component to your object
-3. Below the "New Program" button click the dropdown and select "Udon C# Program Asset"
-4. Now click the New Program button, this will create a new UdonSharp program asset for you
-5. Click the Create Script button and choose a save destination and name for the script.
-6. This will create a template script that's ready for you to start working on, open the script in your editor of choice and start programming
+### 开始使用
+1. 在场景中新建一个物体
+2. 为该物体添加一个 `Udon Behaviour` 组件
+3. 在 "New Program" 按钮下方点击下拉框并选择 "Udon C# Program Asset"
+4. 点击 New Program 按钮，系统会为你创建一个新的 UdonSharp 程序资源
+5. 点击 Create Script 按钮，选择保存目录和脚本名称
+6. 系统会创建一个可供你开始编程的模板脚本，使用你的编辑器打开并开始编写代码
 
-#### Asset explorer asset creation
+#### 在资源管理器中创建 U# 资源文件
 
-Instead of creating assets from an UdonBehaviour you can also do the following:
-1. Right-click in your project asset explorer
-2. Navigate to Create > U# script
-3. Click U# script, this will open a create file dialog
-4. Choose a name for your script and click Save
-5. This will create a .cs script file and an UdonSharp program asset that's set up for the script in the same directory
+除了从 UdonBehaviour 上创建资源外，你也可以：
+1. 在项目资源管理器中右键
+2. 选择 Create > U# script
+3. 点击 U# script，这会打开创建文件对话框
+4. 输入脚本名称并保存
+5. 系统会在同一目录生成一个 .cs 脚本文件以及对应的 UdonSharp 程序资源
 
-### Example scripts
+### 示例脚本
 
-#### The rotating cube demo
+#### 旋转立方体示例
 
-This rotates the object that it's attached to by 90 degrees every second
+这个脚本会让它所在的物体每秒旋转 90 度
 
 ```cs
 using UnityEngine;
@@ -88,15 +89,15 @@ public class RotatingCubeBehaviour : UdonSharpBehaviour
 }
 ```
 
-#### Other examples
+#### 其他示例
 
-For more example scripts take a look at the wiki page for [examples](https://github.com/Merlin-san/UdonSharp/wiki/examples), the Examples folder included with U#, or the [community resources](https://github.com/Merlin-san/UdonSharp/wiki/community-resources) page on the wiki.
+更多示例脚本请访问 wiki 的 [examples](https://github.com/Merlin-san/UdonSharp/wiki/examples) 页面、U# 附带的 Examples 文件夹，或 wiki 上的[社区资源页面](https://github.com/Merlin-san/UdonSharp/wiki/community-resources)。
 
-## Credits
+## 鸣谢
 
-- See [CONTRIBUTORS.md](https://github.com/vrchat-community/UdonSharp/blob/master/CONTRIBUTORS.md) for people who have helped provide improvments to UdonSharp
-- The open source project [Harmony](https://github.com/pardeike/Harmony) helps Udonsharp provide a better editor experience
+* 贡献者请见 [CONTRIBUTORS.md](https://github.com/vrchat-community/UdonSharp/blob/master/CONTRIBUTORS.md)
+* 开源项目 [Harmony](https://github.com/pardeike/Harmony) 帮助 UdonSharp 提供更优秀的编辑器体验
 
+#
 
-# 
 [![Discord](https://img.shields.io/badge/Discord-Merlin%27s%20Discord%20Server-blueviolet?logo=discord)](https://discord.gg/Ub2n8ZA)

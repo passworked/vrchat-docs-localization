@@ -1,31 +1,31 @@
 ---
-upstreamCommit: 66e5a0c1bb2b12b3de3d1341bb8de76083f7d070
+upstreamCommit: f1bf1da95129772851a2ddf4840a99de14271ff8
 ---
 
-# Configuration
+# 配置
 
-All these settings can be found at `Edit > Project Settings > Udon Sharp`
+所有这些设置都可以在 `编辑 > 项目设置 > Udon Sharp` 中找到。
 
-![Udon Sharp Settings](/udonsharp.docs.vrchat.com/images/udon-sharp-settings.png)
+![Udon Sharp 设置](/udonsharp.docs.vrchat.com/images/udon-sharp-settings.png)
 
 # Udon Sharp
 
-### Auto compile on modify
-Having this enabled will auto compile scripts when a file is modified and saved.
+### 修改时自动编译
+启用后，当文件被修改并保存时，脚本会自动编译。
 
-### Compile all script
-Compiles all scripts when ever changes are detected to a U# script.
+### 编译所有脚本
+每当检测到 U# 脚本有变化时，会编译所有脚本。
 
-### Compile on focus
-Will only compile when the editor gets focused and changes have been made to a script.
+### 聚焦时编译
+仅在编辑器获得焦点且脚本有改动时才会编译。
 
-### Script template override
-You can define your own custom template to be used when creating U# scripts.
-This can be done by dragging a script into the `Script template override` field and that will now be used when you create a new U# script.
+### 脚本模板覆盖
+你可以定义自己的自定义模板，用于创建 U# 脚本时。  
+方法是将一个脚本拖入 `Script template override` 字段，这个模板将被用于创建新的 U# 脚本。
 
-`<TemplateClassName>` can be used to set the class name based on the file name you give.
+`<TemplateClassName>` 可以用来根据文件名设置类名。
 
-**Default Template**
+**默认模板**
 ```cs
 using UdonSharp;
 using UnityEngine;
@@ -41,15 +41,18 @@ public class <TemplateClassName> : UdonSharpBehaviour
 }
 ```
 
-# Debugging
+# 调试
 
-### Debug build
-Enables or disabled `Inline Code` and `Listen for client exceptions`
+### 调试构建
 
-### Inline Code
-Includes the C# inline code in the generated assembly code.
+启用或禁用 `Inline Code` 和 `Listen for client exceptions`
 
-### Listen for client exceptions
-This will listen for exceptions from the output log the VRChat client makes, then try to match it up against scripts in the project.
+### 内联代码（Inline Code）
 
-[Read more here on how to set it up](https://github.com/vrchat-community/UdonSharp/wiki/class-exposure-tree)
+在生成的汇编代码中包含 C# 内联代码。
+
+### 监听客户端异常（Listen for client exceptions）
+
+此选项会监听 VRChat 客户端输出日志中的异常，然后尝试将其与项目中的脚本匹配。
+
+[点击这里了解更多设置方法](https://github.com/vrchat-community/UdonSharp/wiki/class-exposure-tree)

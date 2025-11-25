@@ -1,14 +1,14 @@
 ---
-upstreamCommit: 5fd0244260a22b7bed0e807ab14a9b24dae23c2a
+upstreamCommit: f1bf1da95129772851a2ddf4840a99de14271ff8
 ---
 
 # VRChat API
 
 ## API
-### Methods
+### 方法
 * [VRCInstantiate](#vrcinstantiate)
 
-### Classes
+### 类
 * [Utilities](#utilities)
 * [VRCStation](#vrcstation)
 * [Networking](#networking)
@@ -27,7 +27,7 @@ upstreamCommit: 5fd0244260a22b7bed0e807ab14a9b24dae23c2a
 * [VRCPickup](#vrcpickup)
 * [VRCPortalMarker](#vrcportalmarker)
 
-### Enums
+### 枚举
 * [EventTiming](#eventtiming)
 * [Mobility](#mobility)
 * [NetworkEventTarget](#networkeventtarget)
@@ -41,525 +41,547 @@ upstreamCommit: 5fd0244260a22b7bed0e807ab14a9b24dae23c2a
 * [PickupOrientation](#pickuporientation)
 * [PickupHand](#pickuphand)
 
-## Supported Features
+## 支持的功能
 * [Synced Variables](#synced-variables)
 
 ---
 
-## Methods
+## 方法
 
 ### VRCInstantiate
-| Static | Returns                                                                | Name                                                                                            | Summary                                                                                                                                           |
-| :----: | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-|   ✔️    | [GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) | VRCInstantiate([GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) original) | Creates a local, non-synced copy of an object. See [here](https://docs.unity3d.com/ScriptReference/Object.Instantiate.html) for more information. |
+| 静态 | 返回值                                                                 | 名称                                                                                             | 摘要                                                                                                                                            |
+| :--: | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+|  ✔️   | [GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) | VRCInstantiate([GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) original) | 创建对象的本地非同步副本。更多信息请参见 [这里](https://docs.unity3d.com/ScriptReference/Object.Instantiate.html)。 |
 
 
-## Classes
+
+## 类
 
 ### Utilities
 `static class VRC.SDKBase.Utilities`
 
-#### Methods
-| Static | Returns | Name                      | Summary                                                                                                                                                                                                                                                                                                           |
-| :----: | ------- | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|   ✔️    | bool    | IsValid(object obj)       | Returns true if the specified object is valid and not a null reference, otherwise false.  This is typically used to check [VRCPlayerApi](#vrcplayerapi) objects after a player has left the instance, or [GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) objects that have been destroyed. |
-|   ✔️    | void    | ShuffleArray(int[] array) | Randomly shuffles each element in the array.                                                                                                                                                                                                                                                                      |
+方法
+| 静态 | 返回值 | 名称                     | 摘要                                                                                                                                                                                                                                                     |
+| :--: | ------ | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|  ✔️   | bool   | IsValid(object obj)      | 如果指定对象有效且不是 null 引用，则返回 true，否则返回 false。通常用于检查玩家离开实例后的 [VRCPlayerApi](#vrcplayerapi) 对象，或已被销毁的 [GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) 对象。 |
+|  ✔️   | void   | ShuffleArray(int[] array) | 随机打乱数组中的每个元素。                                                                                                                                                                                                                              |
 
 ### VRCStation
 `class VRC.SDK3.Components.VRCStation` / `class VRC.SDKBase.VRCStation`
 
-#### Properties
-| Type                                                                                                 | Name                       | Summary                                                                                                                                                             |
-| ---------------------------------------------------------------------------------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Mobility](#mobility)                                                                                | PlayerMobility             | Determines if the player be able to move.  Default value is `VRCStation.Mobility.Immobilize`.                                                                       |
-| bool                                                                                                 | canUseStationFromStation   | Determines if the user can switch stations when sitting in a station. Default value is `true`.                                                                      |
-| [RuntimeAnimatorController](https://docs.unity3d.com/ScriptReference/RuntimeAnimatorController.html) | animatorController         | Used to override normal seating animations with a custom one.                                                                                                       |
-| bool                                                                                                 | disableStationExit         | If the user cannot exit the station by usual means, use triggers to unseat the user                                                                                 |
-| bool                                                                                                 | seated                     | Is this a station that the user should be sitting in? Default value is `true`. See [here](/creators.vrchat.com/worlds/components/vrc_station) for more information. |
-| [Transform](https://docs.unity3d.com/ScriptReference/Transform.html)                                 | stationEnterPlayerLocation | Transform used to define where the user should be transported to when seated                                                                                        |
-| [Transform](https://docs.unity3d.com/ScriptReference/Transform.html)                                 | stationExitPlayerLocation  | Transform used to define where the user should be transported to when they are unseated                                                                             |
+属性
+| 类型                                                                                                  | 名称                        | 摘要                                                                                                                                                            |
+| ----------------------------------------------------------------------------------------------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Mobility](#mobility)                                                                                | PlayerMobility              | 决定玩家是否可以移动。默认值为 `VRCStation.Mobility.Immobilize`。                                                                                              |
+| bool                                                                                                 | canUseStationFromStation    | 决定用户在坐在一个座位时是否可以切换到另一个座位。默认值为 `true`。                                                                                             |
+| [RuntimeAnimatorController](https://docs.unity3d.com/ScriptReference/RuntimeAnimatorController.html) | animatorController          | 用于用自定义动画覆盖普通的坐下动画。                                                                                                                              |
+| bool                                                                                                 | disableStationExit          | 如果用户无法通过常规方式离开座位，可以使用触发器让用户下座。                                                                                                     |
+| bool                                                                                                 | seated                      | 这是用户应该坐的座位吗？默认值为 `true`。更多信息请参见 [这里](/creators.vrchat.com/worlds/components/vrc_station)。                                            |
+| [Transform](https://docs.unity3d.com/ScriptReference/Transform.html)                                 | stationEnterPlayerLocation  | 用于定义用户坐下时应该传送到的位置的 Transform                                                                                                                   |
+| [Transform](https://docs.unity3d.com/ScriptReference/Transform.html)                                 | stationExitPlayerLocation   | 用于定义用户下座时应该传送到的位置的 Transform                                                                                                                   |
 
-#### Methods
-| Returns | Name                                              | Summary           |
-| ------- | ------------------------------------------------- | ----------------- |
-| void    | UseStation([VRCPlayerApi](#vrcplayerapi) player)  | Uses the station  |
-| void    | ExitStation([VRCPlayerApi](#vrcplayerapi) player) | Exits the station |
+方法
+| 返回值 | 名称                                               | 摘要             |
+| ------ | ------------------------------------------------- | ---------------- |
+| void   | UseStation([VRCPlayerApi](#vrcplayerapi) player)  | 使用座位         |
+| void   | ExitStation([VRCPlayerApi](#vrcplayerapi) player) | 离开座位         |
 
 ### Networking
 `static class VRC.SDKBase.Networking`
 
-#### Properties
-| Static | Type                          | Name             | Summary                                            |
-| :----: | ----------------------------- | ---------------- | -------------------------------------------------- |
-|   ✔️    | bool                          | isMaster         | Returns if the local player is the instance master |
-|   ✔️    | [VRCPlayerApi](#vrcplayerapi) | LocalPlayer      | Returns the current player                         |
-|   ✔️    | bool                          | IsNetworkSettled | Returns true if the network is ready               |
+属性
+| 静态 | 类型                          | 名称             | 摘要                               |
+| :--: | ----------------------------- | ---------------- | --------------------------------- |
+|  ✔️   | bool                          | isMaster         | 返回本地玩家是否为实例的 Master  |
+|  ✔️   | [VRCPlayerApi](#vrcplayerapi) | LocalPlayer      | 返回当前玩家                       |
+|  ✔️   | bool                          | IsNetworkSettled | 返回网络是否准备就绪               |
 
-#### Methods
-| Static | Returns                                                           | Name                                                                                                                       | Summary                                                                                             |
-| :----: | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-|   ✔️    | bool                                                              | IsOwner([VRCPlayerApi](#vrcplayerapi) player, [GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) obj)  | Returns if the given player is the owner over the object                                            |
-|   ✔️    | bool                                                              | IsOwner([GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) obj)                                        | Returns if the local player is the owner of the object                                              |
-|   ✔️    | [VRCPlayerApi](#vrcplayerapi)                                     | GetOwner([GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) obj)                                       | Returns the owner of the given object                                                               |
-|   ✔️    | void                                                              | SetOwner([VRCPlayerApi](#vrcplayerapi) player, [GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) obj) | Sets the provided player as the owner of the object                                                 |
-|   ✔️    | bool                                                              | IsObjectReady([GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) obj)                                  | Returns if the object is ready                                                                      |
-|   ✔️    | void                                                              | Destroy([GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) obj)                                        | Destroys the given object                                                                           |
-|   ✔️    | string                                                            | GetUniqueName([GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) obj)                                  |                                                                                                     |
-|   ✔️    | [DateTime](https://docs.microsoft.com/dotnet/api/system.datetime) | GetNetworkDateTime()                                                                                                       |                                                                                                     |
-|   ✔️    | double                                                            | GetServerTimeInSeconds()                                                                                                   | Returns the current server time in seconds.                                                         |
-|   ✔️    | int                                                               | GetServerTimeInMilliseconds()                                                                                              | Returns the current server time in milliseconds.                                                    |
-|   ✔️    | double                                                            | CalculateServerDeltaTime(double timeInSeconds, double previousTimeInSeconds)                                               | Calculates the difference between two server time stamps as returned by `GetServerTimeInSeconds()`. |
+方法
+| 静态 | 返回值                                                           | 名称                                                                                                                       | 摘要                                                                                             |
+| :--: | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+|  ✔️   | bool                                                              | IsOwner([VRCPlayerApi](#vrcplayerapi) player, [GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) obj)  | 返回指定玩家是否为对象的所有者                                                                    |
+|  ✔️   | bool                                                              | IsOwner([GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) obj)                                        | 返回本地玩家是否为对象的所有者                                                                    |
+|  ✔️   | [VRCPlayerApi](#vrcplayerapi)                                     | GetOwner([GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) obj)                                       | 返回指定对象的所有者                                                                              |
+|  ✔️   | void                                                              | SetOwner([VRCPlayerApi](#vrcplayerapi) player, [GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) obj) | 将指定玩家设置为对象的所有者                                                                     |
+|  ✔️   | bool                                                              | IsObjectReady([GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) obj)                                  | 返回对象是否已准备好                                                                              |
+|  ✔️   | void                                                              | Destroy([GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) obj)                                        | 销毁指定对象                                                                                      |
+|  ✔️   | string                                                            | GetUniqueName([GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) obj)                                  | 获取对象的唯一名称                                                                                 |
+|  ✔️   | [DateTime](https://docs.microsoft.com/dotnet/api/system.datetime) | GetNetworkDateTime()                                                                                                       | 获取网络日期时间                                                                                   |
+|  ✔️   | double                                                            | GetServerTimeInSeconds()                                                                                                   | 返回当前服务器时间（秒）                                                                           |
+|  ✔️   | int                                                               | GetServerTimeInMilliseconds()                                                                                              | 返回当前服务器时间（毫秒）                                                                         |
+|  ✔️   | double                                                            | CalculateServerDeltaTime(double timeInSeconds, double previousTimeInSeconds)                                               | 计算由 `GetServerTimeInSeconds()` 返回的两个服务器时间戳之间的差值                                    |
 
 ### TrackingData
 `struct VRC.SDKBase.VRCPlayerApi.TrackingData`
 
-#### Properties
-| Type                                                                   | Name     | Summary                                     |
-| ---------------------------------------------------------------------- | -------- | ------------------------------------------- |
-| [Vector3](https://docs.unity3d.com/ScriptReference/Vector3.html)       | position | The position of the player's tracking point |
-| [Quaternion](https://docs.unity3d.com/ScriptReference/Quaternion.html) | rotation | The rotation of the player's tracking point |
+属性
+| 类型                                                                   | 名称     | 摘要                                      |
+| ---------------------------------------------------------------------- | -------- | ---------------------------------------- |
+| [Vector3](https://docs.unity3d.com/ScriptReference/Vector3.html)       | position | 玩家跟踪点的位置                          |
+| [Quaternion](https://docs.unity3d.com/ScriptReference/Quaternion.html) | rotation | 玩家跟踪点的旋转                          |
 
 ### UdonBehaviour
 `class VRC.Udon.UdonBehaviour`
 
-A UdonBehaviour can be fetched with GetComponent.<br/>
-Currently *does not* support `GetComponent<T>()`
+UdonBehaviour 可通过 `GetComponent` 获取。  
+当前 *不支持* `GetComponent<T>()`：
 ```cs
 UdonBehaviour behaviour = (UdonBehaviour)GetComponent(typeof(UdonBehaviour));
 ```
 
-#### Properties
-| Type | Name               | Summary                                                                                                                           |
-| ---- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
-| bool | DisableInteractive | Determines whether an object with an Interact event should accept pointer raycasts and show an interactable outline and tooltips. |
+属性
 
-#### Methods
-| Returns                                                   | Name                                                                                                         | Summary                                                                                                                                                            |
-| --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| void                                                      | SendCustomEvent(string eventName)                                                                            | Runs a public method on the behaviour                                                                                                                              |
-| void                                                      | SendCustomNetworkEvent([NetworkEventTarget](#networkeventtarget) target, string eventName)                   | Runs a public method over the network                                                                                                                              |
-| void                                                      | SendCustomEventDelayedSeconds(string eventName, float delaySeconds, [EventTiming](#eventtiming) eventTiming) | Executes a custom event on the behaviour after a time delay, measured in seconds.                                                                                  |
-| void                                                      | SendCustomEventDelayedFrames(string eventName, int delayFrames, [EventTiming](#eventtiming) eventTiming)     | Executes a custom event on the behaviour after a frame delay.                                                                                                      |
-| object                                                    | GetProgramVariable(string symbolName)                                                                        | Get a variable from the behaviour                                                                                                                                  |
-| void                                                      | SetProgramVariable(string symbolName, object value)                                                          | Sets a variable on the behaviour                                                                                                                                   |
-| [Type](https://docs.microsoft.com/dotnet/api/system.type) | GetProgramVariableType(string symbolName)                                                                    | Retrieves the type of the specified variable from the behaviour.                                                                                                   |
-| void                                                      | RequestSerialization()                                                                                       | Triggers the serialization and transmission of any synced variable data to remote clients.  This is typically used when a behaviour is set to manual syncing mode. |
+| 类型   | 名称                 | 摘要                                          |
+| ---- | ------------------ | ------------------------------------------- |
+| bool | DisableInteractive | 决定带有 Interact 事件的对象是否接受指针射线检测，并显示可交互轮廓和提示信息 |
+
+方法
+
+| 返回值                                                       | 名称                                                                                                           | 摘要                                           |
+| --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------- |
+| void                                                      | SendCustomEvent(string eventName)                                                                            | 运行 Behaviour 上的公共方法                          |
+| void                                                      | SendCustomNetworkEvent([NetworkEventTarget](#networkeventtarget) target, string eventName)                   | 通过网络运行 Behaviour 上的公共方法                      |
+| void                                                      | SendCustomEventDelayedSeconds(string eventName, float delaySeconds, [EventTiming](#eventtiming) eventTiming) | 在指定秒数后执行 Behaviour 上的自定义事件                   |
+| void                                                      | SendCustomEventDelayedFrames(string eventName, int delayFrames, [EventTiming](#eventtiming) eventTiming)     | 在指定帧延迟后执行 Behaviour 上的自定义事件                  |
+| object                                                    | GetProgramVariable(string symbolName)                                                                        | 获取 Behaviour 中的变量                            |
+| void                                                      | SetProgramVariable(string symbolName, object value)                                                          | 设置 Behaviour 中的变量                            |
+| [Type](https://docs.microsoft.com/dotnet/api/system.type) | GetProgramVariableType(string symbolName)                                                                    | 获取 Behaviour 中指定变量的类型                        |
+| void                                                      | RequestSerialization()                                                                                       | 触发同步变量的数据序列化并发送给远程客户端。通常用于手动同步模式下的 Behaviour |
 
 ### VRCPlayerApi
+
 `class VRC.SDKBase.VRCPlayerApi`
 
-#### Properties
-| Type   | Name        | Summary                                            |
-| ------ | ----------- | -------------------------------------------------- |
-| bool   | isLocal     | Returns if the given player is the local or remote |
-| string | displayName | Returns the players display name                   |
-| bool   | isMaster    | Returns if the player is the instance Master       |
-| int    | playerId    | Returns the players instance id                    |
+属性
 
-#### Methods
-| Static | Returns                                                                | Name                                                                                                                                                                                                                                                       | Summary                                                                                                                                                                                                                                                                                                              |
-| :----: | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|        | bool                                                                   | IsPlayerGrounded()                                                                                                                                                                                                                                         | Returns if the player is on the ground or not                                                                                                                                                                                                                                                                        |
-|   ✔️    | int                                                                    | GetPlayerId([VRCPlayerApi](#vrcplayerapi) player)                                                                                                                                                                                                          | Returns the players instance id                                                                                                                                                                                                                                                                                      |
-|   ✔️    | [VRCPlayerApi](#vrcplayerapi)                                          | GetPlayerById(int playerId)                                                                                                                                                                                                                                | Returns the player with the given id                                                                                                                                                                                                                                                                                 |
-|   ✔️    | int                                                                    | GetPlayerCount()                                                                                                                                                                                                                                           | Returns the player count for the instance                                                                                                                                                                                                                                                                            |
-|   ✔️    | [VRCPlayerApi[]](#vrcplayerapi)                                        | GetPlayers([VRCPlayerApi[]](#vrcplayerapi) players)                                                                                                                                                                                                        | Populates and returns an array with the current players in the instance. The array parameter must be preallocated with at least `VRCPlayerApi.GetPlayerCount` elements. See [example](https://github.com/vrchat-community/UdonSharp/wiki/examples#get-players)                                                       |
-|        | bool                                                                   | IsOwner([GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) obj)                                                                                                                                                                        | Shows if the player is the owner of a gameObject with a UdonBehaviour on it                                                                                                                                                                                                                                          |
-|        | [TrackingData](#trackingdata)                                          | GetTrackingData([TrackingDataType](#trackingdatatype) tt)                                                                                                                                                                                                  | Returns the tracking data for the specified type                                                                                                                                                                                                                                                                     |
-|        | [Vector3](https://docs.unity3d.com/ScriptReference/Vector3.html)       | GetBonePosition([HumanBodyBones](https://docs.unity3d.com/ScriptReference/HumanBodyBones.html) bone)                                                                                                                                                       | Return position data for the given bone                                                                                                                                                                                                                                                                              |
-|        | [Quaternion](https://docs.unity3d.com/ScriptReference/Quaternion.html) | GetBoneRotation([HumanBodyBones](https://docs.unity3d.com/ScriptReference/HumanBodyBones.html) bone)                                                                                                                                                       | Return rotation data for the given bone                                                                                                                                                                                                                                                                              |
-|        | void                                                                   | TeleportTo([Vector3](https://docs.unity3d.com/ScriptReference/Vector3.html) teleportPos, [Quaternion](https://docs.unity3d.com/ScriptReference/Quaternion.html) teleportRot)                                                                               | Teleports the player to the position with rotation                                                                                                                                                                                                                                                                   |
-|        | void                                                                   | TeleportTo([Vector3](https://docs.unity3d.com/ScriptReference/Vector3.html) teleportPos, [Quaternion](https://docs.unity3d.com/ScriptReference/Quaternion.html) teleportRot, [SpawnOrientation](#spawnorientation) teleportOrientation)                    | Teleports the player to the position, rotation, and the spawn orientation                                                                                                                                                                                                                                            |
-|        | void                                                                   | TeleportTo([Vector3](https://docs.unity3d.com/ScriptReference/Vector3.html) teleportPos, [Quaternion](https://docs.unity3d.com/ScriptReference/Quaternion.html) teleportRot, [SpawnOrientation](#spawnorientation) teleportOrientation, bool lerpOnRemote) | Teleports the player to the position, rotation, the spawn orientation, and if you want to lerp on remote                                                                                                                                                                                                             |
-|        | void                                                                   | EnablePickup(bool enable)                                                                                                                                                                                                                                  | Set if the player can use pickups or not (*Need Testing*)                                                                                                                                                                                                                                                            |
-|        | void                                                                   | SetPlayerTag(string tagName, string tagValue)                                                                                                                                                                                                              | Assigns a value to the tag for the player.  Returns null if the tag has not been assigned.  Note that player tags are not synchronized to remote clients.                                                                                                                                                            |
-|        | string                                                                 | GetPlayerTag(string tagName)                                                                                                                                                                                                                               | Returns the value of the given tag for the player. Assign a value of null to clear the tag.                                                                                                                                                                                                                          |
-|        | void                                                                   | ClearPlayerTags()                                                                                                                                                                                                                                          | Clears the tags on the given player                                                                                                                                                                                                                                                                                  |
-|        | void                                                                   | SetRunSpeed(float speed)                                                                                                                                                                                                                                   | Sets the player run speed                                                                                                                                                                                                                                                                                            |
-|        | void                                                                   | SetWalkSpeed(float speed)                                                                                                                                                                                                                                  | Sets the players walk speed                                                                                                                                                                                                                                                                                          |
-|        | void                                                                   | SetJumpImpulse(float impulse)                                                                                                                                                                                                                              | Sets players jump impulse                                                                                                                                                                                                                                                                                            |
-|        | void                                                                   | SetGravityStrength(float strength)                                                                                                                                                                                                                         | Sets the players gravity                                                                                                                                                                                                                                                                                             |
-|        | void                                                                   | SetStrafeSpeed(float speed)                                                                                                                                                                                                                                | Sets the player's strafe speed.  The default strafe speed is 2.0f.                                                                                                                                                                                                                                                   |
-|        | float                                                                  | GetRunSpeed()                                                                                                                                                                                                                                              | Returns the current run speed value                                                                                                                                                                                                                                                                                  |
-|        | float                                                                  | GetWalkSpeed()                                                                                                                                                                                                                                             | Returns the current walk speed value                                                                                                                                                                                                                                                                                 |
-|        | float                                                                  | GetJumpImpulse()                                                                                                                                                                                                                                           | Returns the current jump impulse value                                                                                                                                                                                                                                                                               |
-|        | float                                                                  | GetGravityStrength()                                                                                                                                                                                                                                       | Returns the current gravity value                                                                                                                                                                                                                                                                                    |
-|        | float                                                                  | GetStrafeSpeed()                                                                                                                                                                                                                                           | Returns the player's current strafe speed.                                                                                                                                                                                                                                                                           |
-|        | bool                                                                   | IsUserInVR()                                                                                                                                                                                                                                               | Returns if the current user is in VR                                                                                                                                                                                                                                                                                 |
-|        | void                                                                   | UseLegacyLocomotion()                                                                                                                                                                                                                                      | Sets the locomotion to the old system                                                                                                                                                                                                                                                                                |
-|        | void                                                                   | Immobilize(bool immobile)                                                                                                                                                                                                                                  | Prevents user from moving                                                                                                                                                                                                                                                                                            |
-|        | void                                                                   | UseAttachedStation()                                                                                                                                                                                                                                       | Sits the players down on the station (Requires VRC_Station on the same gameObject)                                                                                                                                                                                                                                   |
-|        | void                                                                   | SetVelocity([Vector3](https://docs.unity3d.com/ScriptReference/Vector3.html) velocity)                                                                                                                                                                     | Sets the players velocity                                                                                                                                                                                                                                                                                            |
-|        | [Vector3](https://docs.unity3d.com/ScriptReference/Vector3.html)       | GetVelocity()                                                                                                                                                                                                                                              | Returns the player velocity                                                                                                                                                                                                                                                                                          |
-|        | [Vector3](https://docs.unity3d.com/ScriptReference/Vector3.html)       | GetPosition()                                                                                                                                                                                                                                              | Returns the player position                                                                                                                                                                                                                                                                                          |
-|        | [Quaternion](https://docs.unity3d.com/ScriptReference/Quaternion.html) | GetRotation()                                                                                                                                                                                                                                              | Returns the player rotation                                                                                                                                                                                                                                                                                          |
-|        | void                                                                   | SetVoiceGain(float gain)                                                                                                                                                                                                                                   | Add boost to the Player's voice in decibels, range 0-24                                                                                                                                                                                                                                                              |
-|        | void                                                                   | SetVoiceDistanceNear(float near)                                                                                                                                                                                                                           | The near radius, in meters, where volume begins to fall off. It is strongly recommended to leave the Near value at zero for realism and effective spatialization for user voices. In Meters, Range 0 - 1,000,000                                                                                                     |
-|        | void                                                                   | SetVoiceDistanceFar(float far)                                                                                                                                                                                                                             | This sets the end of the range for hearing the user's voice. Default is 25 meters. You can lower this to make another player's voice not travel as far, all the way to 0 to effectively 'mute' the player. In Meters, Range is 0 - 1,000,000                                                                         |
-|        | void                                                                   | SetVoiceVolumetricRadius(float radius)                                                                                                                                                                                                                     | A player's voice is normally simulated to be a point source, however changing this value allows the source to appear to come from a larger area. Keep this at zero unless you know what you're doing. In Meters, Range is 0 -1,000. Default 0                                                                        |
-|        | void                                                                   | SetVoiceLowpass(bool enabled)                                                                                                                                                                                                                              | When a voice is some distance off, it is passed through a low-pass filter to help with understanding noisy worlds. You can disable this if you want to skip this filter. For example, if you intend for a player to use their voice channel to play a high-quality DJ mix, turning this filter off is advisable.     |
-|        | void                                                                   | SetAvatarAudioGain(float gain)                                                                                                                                                                                                                             | Set the Maximum Gain allowed on Avatar Audio. Default is 10. In Decibels, Range 0-10                                                                                                                                                                                                                                 |
-|        | void                                                                   | SetAvatarAudioNearRadius(float distance)                                                                                                                                                                                                                   | This sets the maximum start of the range for hearing the avatar's audio. Default is 40 meters. You can lower this to make another player's avatar not travel as far, all the way to 0 to effectively 'mute' the player. Note that this is compared to the audio source's minDistance, and the smaller value is used. |
-|        | void                                                                   | SetAvatarAudioFarRadius(float distance)                                                                                                                                                                                                                    | This sets the maximum end of the range for hearing the avatar's audio. Default is 40 meters. You can lower this to make another player's avatar not travel as far, all the way to 0 to effectively 'mute' the player. Note that this is compared to the audio source's maxDistance, and the smaller value is used.   |
-|        | void                                                                   | SetAvatarAudioVolumetricRadius(float radius)                                                                                                                                                                                                               | An avatar's audio source is normally simulated to be a point source, however changing this value allows the source to appear to come from a larger area. This should be used carefully, and is mainly for distant audio sources that need to sound "large" as you move past them. Default is 40                      |
-|        | void                                                                   | SetAvatarAudioForceSpatial(bool force)                                                                                                                                                                                                                     | If this is on, then Spatialization is enabled for avatar audio sources, and the spatialBlend is set to 1. Enabling this prevents avatars from using 2D audio.                                                                                                                                                        |
-|        | void                                                                   | SetAvatarAudioCustomCurve(bool allow)                                                                                                                                                                                                                      | This sets whether avatar audio sources can use a pre-configured custom curve.                                                                                                                                                                                                                                        |
-|        | void                                                                   | PlayHapticEventInHand([PickupHand](#pickuphand) hand, float duration, float amplitude, float frequency)                                                                                                                                                    | Plays haptic feedback on the player's controller for the given hand.                                                                                                                                                                                                                                                 |
-|        | [VRCPickup](#vrcpickup)                                                | GetPickupInHand([PickupHand](#pickuphand) hand)                                                                                                                                                                                                            | Returns the associated pickup object for the given hand.                                                                                                                                                                                                                                                             |
+| 类型     | 名称          | 摘要               |
+| ------ | ----------- | ---------------- |
+| bool   | isLocal     | 判断玩家是本地还是远程      |
+| string | displayName | 玩家显示名称           |
+| bool   | isMaster    | 判断玩家是否为实例 Master |
+| int    | playerId    | 玩家实例 ID          |
+
+方法
+
+|  静态 | 返回值                                                                    | 名称                                                                                                                                                                           | 摘要                                                          |
+| :-: | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+|     | bool                                                                   | IsPlayerGrounded()                                                                                                                                                           | 判断玩家是否在地面上                                                  |
+|  ✔️ | int                                                                    | GetPlayerId([VRCPlayerApi](#vrcplayerapi) player)                                                                                                                            | 获取玩家实例 ID                                                   |
+|  ✔️ | [VRCPlayerApi](#vrcplayerapi)                                          | GetPlayerById(int playerId)                                                                                                                                                  | 根据 ID 获取玩家                                                  |
+|  ✔️ | int                                                                    | GetPlayerCount()                                                                                                                                                             | 返回实例中的玩家数量                                                  |
+|  ✔️ | [VRCPlayerApi[]](#vrcplayerapi)                                        | GetPlayers([VRCPlayerApi[]](#vrcplayerapi) players)                                                                                                                          | 填充并返回实例中当前玩家数组。数组必须至少预分配 `VRCPlayerApi.GetPlayerCount` 个元素。 |
+|     | bool                                                                   | IsOwner([GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) obj)                                                                                          | 判断玩家是否拥有带 UdonBehaviour 的对象                                 |
+|     | [TrackingData](#trackingdata)                                          | GetTrackingData([TrackingDataType](#trackingdatatype) tt)                                                                                                                    | 返回指定类型的跟踪数据                                                 |
+|     | [Vector3](https://docs.unity3d.com/ScriptReference/Vector3.html)       | GetBonePosition([HumanBodyBones](https://docs.unity3d.com/ScriptReference/HumanBodyBones.html) bone)                                                                         | 获取指定骨骼位置数据                                                  |
+|     | [Quaternion](https://docs.unity3d.com/ScriptReference/Quaternion.html) | GetBoneRotation([HumanBodyBones](https://docs.unity3d.com/ScriptReference/HumanBodyBones.html) bone)                                                                         | 获取指定骨骼旋转数据                                                  |
+|     | void                                                                   | TeleportTo([Vector3](https://docs.unity3d.com/ScriptReference/Vector3.html) teleportPos, [Quaternion](https://docs.unity3d.com/ScriptReference/Quaternion.html) teleportRot) | 将玩家传送到指定位置和旋转                                               |
+|     | void                                                                   | TeleportTo([Vector3] teleportPos, [Quaternion] teleportRot, [SpawnOrientation](#spawnorientation) teleportOrientation)                                                       | 将玩家传送到指定位置、旋转和生成方向                                          |
+|     | void                                                                   | TeleportTo([Vector3] teleportPos, [Quaternion] teleportRot, [SpawnOrientation] teleportOrientation, bool lerpOnRemote)                                                       | 将玩家传送到指定位置、旋转、生成方向，并选择远程是否使用插值                              |
+|     | void                                                                   | EnablePickup(bool enable)                                                                                                                                                    | 设置玩家是否可以使用拾取物 (*需测试*)                                       |
+|     | void                                                                   | SetPlayerTag(string tagName, string tagValue)                                                                                                                                | 为玩家设置标签值，未分配标签返回 null，标签不同步到远程客户端                           |
+|     | string                                                                 | GetPlayerTag(string tagName)                                                                                                                                                 | 获取玩家标签值，将值设置为 null 可清除标签                                    |
+|     | void                                                                   | ClearPlayerTags()                                                                                                                                                            | 清除玩家标签                                                      |
+|     | void                                                                   | SetRunSpeed(float speed)                                                                                                                                                     | 设置玩家跑速                                                      |
+|     | void                                                                   | SetWalkSpeed(float speed)                                                                                                                                                    | 设置玩家行走速度                                                    |
+|     | void                                                                   | SetJumpImpulse(float impulse)                                                                                                                                                | 设置玩家跳跃冲量                                                    |
+|     | void                                                                   | SetGravityStrength(float strength)                                                                                                                                           | 设置玩家重力                                                      |
+|     | void                                                                   | SetStrafeSpeed(float speed)                                                                                                                                                  | 设置玩家横向移动速度，默认 2.0f                                          |
+|     | float                                                                  | GetRunSpeed()                                                                                                                                                                | 获取当前跑速                                                      |
+|     | float                                                                  | GetWalkSpeed()                                                                                                                                                               | 获取当前行走速度                                                    |
+|     | float                                                                  | GetJumpImpulse()                                                                                                                                                             | 获取当前跳跃冲量                                                    |
+|     | float                                                                  | GetGravityStrength()                                                                                                                                                         | 获取当前重力值                                                     |
+|     | float                                                                  | GetStrafeSpeed()                                                                                                                                                             | 获取玩家横向移动速度                                                  |
+|     | bool                                                                   | IsUserInVR()                                                                                                                                                                 | 判断当前用户是否在 VR 模式                                             |
+|     | void                                                                   | UseLegacyLocomotion()                                                                                                                                                        | 使用旧版移动系统                                                    |
+|     | void                                                                   | Immobilize(bool immobile)                                                                                                                                                    | 禁止玩家移动                                                      |
+|     | void                                                                   | UseAttachedStation()                                                                                                                                                         | 玩家坐在附加的座位上 (需要 VRC_Station 在同一对象上)                          |
+|     | void                                                                   | SetVelocity([Vector3] velocity)                                                                                                                                              | 设置玩家速度                                                      |
+|     | [Vector3](https://docs.unity3d.com/ScriptReference/Vector3.html)       | GetVelocity()                                                                                                                                                                | 获取玩家速度                                                      |
+|     | [Vector3](https://docs.unity3d.com/ScriptReference/Vector3.html)       | GetPosition()                                                                                                                                                                | 获取玩家位置                                                      |
+|     | [Quaternion](https://docs.unity3d.com/ScriptReference/Quaternion.html) | GetRotation()                                                                                                                                                                | 获取玩家旋转                                                      |
+|     | void                                                                   | SetVoiceGain(float gain)                                                                                                                                                     | 设置玩家语音增益 (dB)，范围 0-24                                       |
+|     | void                                                                   | SetVoiceDistanceNear(float near)                                                                                                                                             | 设置音量开始衰减的近距离半径，建议保持为 0 以保证真实感和空间化                           |
+|     | void                                                                   | SetVoiceDistanceFar(float far)                                                                                                                                               | 设置玩家语音听觉范围结束距离，默认 25m，可降至 0 实现静音                            |
+|     | void                                                                   | SetVoiceVolumetricRadius(float radius)                                                                                                                                       | 设置玩家语音体积化半径，默认为 0                                           |
+|     | void                                                                   | SetVoiceLowpass(bool enabled)                                                                                                                                                | 控制远距离语音是否使用低通滤波                                             |
+|     | void                                                                   | SetAvatarAudioGain(float gain)                                                                                                                                               | 设置 Avatar 音频最大增益，默认 10 dB                                   |
+|     | void                                                                   | SetAvatarAudioNearRadius(float distance)                                                                                                                                     | 设置 Avatar 音频近距离范围，默认 40m                                    |
+|     | void                                                                   | SetAvatarAudioFarRadius(float distance)                                                                                                                                      | 设置 Avatar 音频远距离范围，默认 40m                                    |
+|     | void                                                                   | SetAvatarAudioVolumetricRadius(float radius)                                                                                                                                 | 设置 Avatar 音频体积化半径，默认 40m                                    |
+|     | void                                                                   | SetAvatarAudioForceSpatial(bool force)                                                                                                                                       | 强制启用 Avatar 音频空间化                                           |
+|     | void                                                                   | SetAvatarAudioCustomCurve(bool allow)                                                                                                                                        | 设置 Avatar 音频是否可使用自定义曲线                                      |
+|     | void                                                                   | PlayHapticEventInHand([PickupHand](#pickuphand) hand, float duration, float amplitude, float frequency)                                                                      | 在指定手柄上播放触觉反馈                                                |
+|     | [VRCPickup](#vrcpickup)                                                | GetPickupInHand([PickupHand](#pickuphand) hand)                                                                                                                              | 获取指定手的拾取对象                                                  |
+
+
 
 ### InputManager
 `static class VRC.SDKBase.InputManager`
 
-#### Methods
-| Static | Returns                           | Name                                                                                                           | Summary                                                                                                        |
-| :----: | --------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-|   ✔️    | bool                              | IsUsingHandController()                                                                                        | Returns whether or not the user is using a hand controller.                                                    |
-|   ✔️    | [VRCInputMethod](#vrcinputmethod) | GetLastUsedInputMethod()                                                                                       | Returns the last input method used, or [`VRCInputMethod.Count`](#vrcinputmethod) if no input method was found. |
-|   ✔️    | void                              | EnableObjectHighlight([GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) obj, bool enable) | Enables or disables object highlighting for the specified object.                                              |
-|   ✔️    | void                              | EnableObjectHighlight([Renderer](https://docs.unity3d.com/ScriptReference/Renderer.html) r, bool enable)       | Enables or disables object highlighting for the specified renderer.                                            |
+方法
+| 静态 | 返回值                           | 名称                                                                                                           | 摘要                                                                                                        |
+| :--: | -------------------------------- | -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+|  ✔️   | bool                              | IsUsingHandController()                                                                                        | 返回用户是否正在使用手部控制器                                                                               |
+|  ✔️   | [VRCInputMethod](#vrcinputmethod) | GetLastUsedInputMethod()                                                                                       | 返回最后使用的输入方式，如果未找到返回 [`VRCInputMethod.Count`](#vrcinputmethod)                             |
+|  ✔️   | void                              | EnableObjectHighlight([GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) obj, bool enable) | 为指定对象启用或禁用高亮                                                                                   |
+|  ✔️   | void                              | EnableObjectHighlight([Renderer](https://docs.unity3d.com/ScriptReference/Renderer.html) r, bool enable)       | 为指定渲染器启用或禁用高亮                                                                                 |
 
 ### SerializationResult
 `struct VRC.Udon.Common`
 
-The results returned by the `OnPostSerialization` event.
+OnPostSerialization 事件返回的结果。
 
-#### Constructor
-| Name                                             | Summary                                                         |
-| ------------------------------------------------ | --------------------------------------------------------------- |
-| SerializationResult(bool success, int byteCount) | Constructor.  Note that this can only be called at editor time. |
+构造函数
+| 名称                                             | 摘要                                                         |
+| ------------------------------------------------ | ----------------------------------------------------------- |
+| SerializationResult(bool success, int byteCount) | 构造函数。注意该构造函数仅可在编辑器中调用。                |
 
-#### Properties
-| Type | Name      | Summary                                           |
-| ---- | --------- | ------------------------------------------------- |
-| bool | success   | Whether the serialization attempt was successful. |
-| int  | byteCount | The number of bytes that were serialized.         |
+属性
+| 类型 | 名称      | 摘要                                           |
+| ---- | --------- | --------------------------------------------- |
+| bool | success   | 序列化是否成功                                |
+| int  | byteCount | 序列化的字节数                                |
 
 ### UdonInputEventArgs
 `struct VRC.Udon.Common.UdonInputEventArgs`
 
-Provides contextual data for an input event.
+输入事件的上下文数据。
 
-#### Properties
-| Type                                      | Name       | Summary                                                                                                                                        |
-| ----------------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| [UdonInputEventType](#udoninputeventtype) | eventType  | The type of input event that was fired.                                                                                                        |
-| bool                                      | boolValue  | The value of the input method when an `InputJump`, `InputUse`, `InputGrab` or `InputDrop` event is fired.                                      |
-| float                                     | floatValue | The value of the input method when an `InputMoveHorizontal`, `InputMoveVertical`, `InputLookHorizontal` or `InputLookVertical` event is fired. |
-| [HandType](#handtype)                     | handType   | The hand that the input event occurred on. For desktop users, the keyboard is the left hand and the mouse is the right hand.                   |
+属性
+| 类型                                      | 名称       | 摘要                                                                                   |
+| ----------------------------------------- | ---------- | ------------------------------------------------------------------------------------- |
+| [UdonInputEventType](#udoninputeventtype) | eventType  | 触发的输入事件类型                                                                    |
+| bool                                      | boolValue  | 当触发 `InputJump`、`InputUse`、`InputGrab` 或 `InputDrop` 时的输入值                 |
+| float                                     | floatValue | 当触发 `InputMoveHorizontal`、`InputMoveVertical`、`InputLookHorizontal` 或 `InputLookVertical` 时的输入值 |
+| [HandType](#handtype)                     | handType   | 输入事件发生的手。桌面用户中，键盘为左手，鼠标为右手                                   |
 
 ### VRCUrl
 `class VRC.SDKBase.VRCUrl`
 
-[VRCUrl](#vrcurl) objects currently cannot be constructed at runtime in Udon and are typically constructed at editor time via editor scripts, or retrieved from a [VRCUrlInputField](#vrcurlinputfield).
+VRCUrl 对象通常无法在运行时通过 Udon 构造，通常通过编辑器脚本或 [VRCUrlInputField](#vrcurlinputfield) 获取。
 
-#### Constructor
-| Name               | Summary                                                                                   |
-| ------------------ | ----------------------------------------------------------------------------------------- |
-| VRCUrl(string url) | Constructor that takes a URL as input.  Note that this can only be called at editor time. |
+构造函数
+| 名称               | 摘要                                                                                   |
+| ------------------ | ------------------------------------------------------------------------------------- |
+| VRCUrl(string url) | 构造函数，输入 URL。仅可在编辑器中调用。                                              |
 
-#### Properties
-| Static | Type              | Name  | Summary       |
-| :----: | ----------------- | ----- | ------------- |
-|   ✔️    | [VRCUrl](#vrcurl) | Empty | An empty URL. |
+属性
+| 静态 | 类型              | 名称  | 摘要       |
+| :--: | ----------------- | ----- | --------- |
+|  ✔️   | [VRCUrl](#vrcurl) | Empty | 空 URL 对象 |
 
-#### Methods
-| Returns | Name  | Summary                                 |
-| ------- | ----- | --------------------------------------- |
-| string  | Get() | Retrieves the current value of the URL. |
+方法
+| 返回值 | 名称 | 摘要                    |
+| ------- | ---- | ---------------------- |
+| string  | Get() | 获取 URL 当前值         |
 
 ### VRCUrlInputField
 `class VRC.SDK3.Components.VRCUrlInputField`
 
-A UI component for end users to input a custom URL and output to Udon programs as a [VRCUrl](#vrcurl).
+UI 组件，供用户输入自定义 URL，并输出给 Udon 程序作为 [VRCUrl](#vrcurl)。
 
-#### Methods
-| Returns           | Name                          | Summary                                         |
-| ----------------- | ----------------------------- | ----------------------------------------------- |
-| [VRCUrl](#vrcurl) | GetUrl()                      | Retrieves the current value of the input field. |
-| void              | SetUrl([VRCUrl](#vrcurl) url) | Sets the URL displayed in the input field.      |
+方法
+| 返回值           | 名称                          | 摘要                                         |
+| ----------------- | ----------------------------- | ------------------------------------------- |
+| [VRCUrl](#vrcurl) | GetUrl()                      | 获取输入框当前 URL 值                         |
+| void              | SetUrl([VRCUrl](#vrcurl) url) | 设置输入框显示的 URL                          |
 
 ### VRCMirrorReflection
 `class VRC.SDK3.Components.VRCMirrorReflection` / `class VRC.SDKBase.VRC_MirrorReflection`
 
-A component that manages a mirror surface on an object.
+管理对象镜面表面的组件。
 
-#### Properties
-| Type                                                                 | Name                   | Summary                                                                                                                              |
-| -------------------------------------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| bool                                                                 | m_DisablePixelLights   | Disables real-time pixel shaded point and spot lighting. Pixel shaded lights will fall-back to vertex lighting when this is enabled. |
-| bool                                                                 | TurnOffMirrorOcclusion | Disables occlusion culling on the mirror. Enable this if you see objects flickering in the mirror.                                   |
-| [LayerMask](https://docs.unity3d.com/ScriptReference/LayerMask.html) | m_ReflectLayers        | Only objects on the selected layers will be rendered in the mirror. Objects on the Water layer are never rendered in mirrors.        |
+属性
+| 类型                                                                 | 名称                   | 摘要                                                                                                                              |
+| -------------------------------------------------------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| bool                                                                 | m_DisablePixelLights   | 禁用实时像素着色点光源和聚光灯，启用后将退回使用顶点光照                                                                      |
+| bool                                                                 | TurnOffMirrorOcclusion | 禁用镜面遮挡剔除，如镜中物体闪烁可启用                                                                                           |
+| [LayerMask](https://docs.unity3d.com/ScriptReference/LayerMask.html) | m_ReflectLayers        | 仅渲染选中层的对象，水层对象永远不渲染                                                                                           |
 
 ### VRCObjectPool
 `class VRC.SDK3.Components.VRCObjectPool`
 
-VRC Object Pool provides a lightweight method of managing an array of game objects. The pool will manage and synchronize the active state of each object it holds.
+轻量级对象池，管理一组 GameObject 并同步它们的激活状态。  
 
-Objects are made active by the pool via the TryToSpawn node, which will return the object that was made active, or a null object if none are available. Objects may be returned to the pool by the pool's owner, and automatically disabled, via the Return node.
+- `TryToSpawn` 激活对象并返回，若无可用对象返回 null  
+- `Return` 由对象池所有者调用，将对象返回池中并禁用  
+- 对象激活时触发 `OnSpawn` 事件，UdonBehaviour 可监听  
+- 后加入的玩家会自动同步对象状态
 
-When objects are enabled by the pool the OnSpawn event is fired, which an udon behaviour on the object may listen for.
+属性
+| 类型                                                                     | 名称 | 摘要                       |
+| ------------------------------------------------------------------------ | ---- | ------------------------- |
+| [GameObject[]](https://docs.unity3d.com/ScriptReference/GameObject.html) | Pool | 对象池管理的对象数组        |
 
-Late joiners will have the objects automatically made active or inactive where appropriate.
-
-#### Properties
-| Type                                                                     | Name | Summary                                        |
-| ------------------------------------------------------------------------ | ---- | ---------------------------------------------- |
-| [GameObject[]](https://docs.unity3d.com/ScriptReference/GameObject.html) | Pool | The objects being managed by this object pool. |
-
-#### Methods
-| Returns                                                                | Name                                                                               | Summary                                                                                |
-| ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| [GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) | TryToSpawn()                                                                       | Returns an unused object from the object pool where available, otherwise returns null. |
-| void                                                                   | Return([GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) obj) | Places the specified object back into the pool, freeing it up for future reuse.        |
+方法
+| 返回值                                                                | 名称                                                                               | 摘要                                                        |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| [GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) | TryToSpawn()                                                                       | 返回池中未使用的对象，如无返回 null                           |
+| void                                                                   | Return([GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html) obj) | 将指定对象放回池中，可供后续使用                              |
 
 ### VRCObjectSync
 `class VRC.SDK3.Components.VRCObjectSync`
 
-This component will automatically sync the Transform (position, rotation scale) and Rigidbody (physics) of the object you put it on.
+该组件会自动同步对象的 Transform（位置、旋转、缩放）以及 Rigidbody（物理）。
 
-#### Properties
-| Type | Name                            | Summary                                                                                    |
-| ---- | ------------------------------- | ------------------------------------------------------------------------------------------ |
-| bool | AllowCollisionOwnershipTransfer | Should ownership of object transfer if it collides with an object owned by another player. |
+属性
+| 类型 | 名称                            | 摘要                                                                                       |
+| ---- | ------------------------------- | ----------------------------------------------------------------------------------------- |
+| bool | AllowCollisionOwnershipTransfer | 当对象与另一玩家拥有的对象发生碰撞时，是否允许所有权转移                                   |
 
-#### Methods
-| Returns | Name                                                                                            | Summary                                                                                                                                                                                                  |
-| ------- | ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| void    | SetKinematic(bool value)                                                                        | Changes the kinematic state, usually handled by the Rigidbody of the object but controlled here for sync purposes. When the kinematic state is on, this Rigidbody ignores forces, collisions and joints. |
-| void    | SetGravity(bool value)                                                                          | Changes the gravity state, usually handled by the Rigidbody of the object but controlled here for sync purposes.                                                                                         |
-| void    | FlagDiscontinuity()                                                                             | Trigger this when you want to teleport the object - the changes you make this frame will be applied without smoothing.                                                                                   |
-| void    | TeleportTo([Transform](https://docs.unity3d.com/ScriptReference/Transform.html) targetLocation) | Moves the object to the specified location.                                                                                                                                                              |
-| void    | Respawn()                                                                                       | Moves the object back to its original spawn location.                                                                                                                                                    |
+方法
+| 返回值 | 名称                                                                                            | 摘要                                                                                                                                     |
+| ------- | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| void    | SetKinematic(bool value)                                                                        | 设置 Rigidbody 是否为 Kinematic。Kinematic 状态下会忽略力、碰撞和关节，通常用于同步控制。                                              |
+| void    | SetGravity(bool value)                                                                          | 设置 Rigidbody 是否受重力影响，通常用于同步控制。                                                                                       |
+| void    | FlagDiscontinuity()                                                                             | 当你希望瞬移对象时调用。本帧的变动会直接应用而不平滑过渡。                                                                               |
+| void    | TeleportTo([Transform](https://docs.unity3d.com/ScriptReference/Transform.html) targetLocation) | 将对象移动到指定 Transform 位置。                                                                                                       |
+| void    | Respawn()                                                                                       | 将对象移动回初始生成位置。                                                                                                               |
+
+---
 
 ### VRCAvatarPedestal
 `class VRC.SDK3.Components.VRCAvatarPedestal` / `class VRC.SDKBase.VRC_AvatarPedestal`
 
-A component used to display an avatar in a world, and allows users to switch to the associated avatar.
+用于在世界中展示虚拟形象，并允许玩家切换至该虚拟形象。
 
-#### Properties
-| Type                                                                 | Name               | Summary                                                                        |
-| -------------------------------------------------------------------- | ------------------ | ------------------------------------------------------------------------------ |
-| string                                                               | blueprintId        | Blueprint Id of the avatar to be shown.                                        |
-| [Transform](https://docs.unity3d.com/ScriptReference/Transform.html) | Placement          | Transform to display the avatar on.                                            |
-| bool                                                                 | ChangeAvatarsOnUse | If set to true, switches the user to the avatar set on the pedestal when used. |
-| float                                                                | scale              | How big or small the avatar should be, only affects the pedestal avatar.       |
+属性
+| 类型                                                                 | 名称               | 摘要                                                                 |
+| -------------------------------------------------------------------- | ------------------ | ------------------------------------------------------------------- |
+| string                                                               | blueprintId        | 展示虚拟形象的 Blueprint Id                                             |
+| [Transform](https://docs.unity3d.com/ScriptReference/Transform.html) | Placement          | 虚拟形象显示位置的 Transform                                             |
+| bool                                                                 | ChangeAvatarsOnUse | 若为 true，玩家使用台座时切换至此虚拟形象                                  |
+| float                                                                | scale              | 虚拟形象大小，仅影响台座展示                                               |
 
-#### Methods
-| Returns | Name                                                   | Summary                                                                                                                              |
-| ------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
-| void    | SwitchAvatar(string id)                                | Changes the blue print id associated with the pedestal and updates the view for all users.                                           |
-| void    | SetAvatarUse([VRCPlayerApi](#vrcplayerapi) instigator) | Causes the player to switch to the associated avatar. `instigator` must be the local player as returned by `Networking.LocalPlayer`. |
+方法
+| 返回值 | 名称                                                   | 摘要                                                                                     |
+| ------- | ------------------------------------------------------ | --------------------------------------------------------------------------------------- |
+| void    | SwitchAvatar(string id)                                | 更换台座虚拟形象 Blueprint Id，并更新所有玩家的视图                                         |
+| void    | SetAvatarUse([VRCPlayerApi](#vrcplayerapi) instigator) | 让玩家切换至台座关联虚拟形象。`instigator` 必须是本地玩家（Networking.LocalPlayer）      |
+
+---
 
 ### VRCPickup
 `class VRC.SDK3.Components.VRCPickup` / `class VRC.SDKBase.VRC_Pickup`
 
-A component used to allow objects to be picked up and held.
+允许对象被玩家拾取和持有。
 
-#### Properties
-| Type                                                                 | Name                          | Summary                                                                                                                                                                                               |
-| -------------------------------------------------------------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [ForceMode](https://docs.unity3d.com/ScriptReference/ForceMode.html) | MomentumTransferMethod        | This defines how the collision force will be added to the other object which was hit, using `Rigidbody.AddForceAtPosition`. Note that the force will only be added if `AllowCollisionTransfer` is on. |
-| bool                                                                 | DisallowTheft                 | If other users are allowed to take the pickup out of some else's grip.                                                                                                                                |
-| [Transform](https://docs.unity3d.com/ScriptReference/Transform.html) | ExactGun                      | The position object will be held if set to Exact Gun.                                                                                                                                                 |
-| [Transform](https://docs.unity3d.com/ScriptReference/Transform.html) | ExactGrip                     | The position object will be held if set to Exact Grip.                                                                                                                                                |
-| bool                                                                 | allowManipulationWhenEquipped | Should the user be able to manipulate the pickup while the pickup is held if using a controller.                                                                                                      |
-| [PickupOrientation](#pickuporientation)                              | orientation                   | What way the object will be held.                                                                                                                                                                     |
-| [AutoHoldMode](#autoholdmode)                                        | AutoHold                      | Should the pickup remain in the users hand after they let go of the grab button.                                                                                                                      |
-| string                                                               | InteractionText               | Tooltip text that is displayed when holding the pickup.                                                                                                                                               |
-| string                                                               | UseText                       | Tooltip text that is displayed when hovering over the pickup.                                                                                                                                         |
-| float                                                                | ThrowVelocityBoostMinSpeed    | How fast the object needs to move to be thrown.                                                                                                                                                       |
-| float                                                                | ThrowVelocityBoostScale       | How much throwing should scale, higher = faster thrown while lower means slower throw speed.                                                                                                          |
-| bool                                                                 | pickupable                    | Determines whether you can pickup the object.                                                                                                                                                         |
-| float                                                                | proximity                     | The maximum distance a player can be away from a pickup to interact with it.                                                                                                                          |
-| [VRCPlayerApi](#vrcplayerapi)                                        | currentPlayer                 | The player that is currently holding the pickup.                                                                                                                                                      |
-| bool                                                                 | IsHeld                        | Determines whether the pickup is currently being held by a player.                                                                                                                                    |
-| [PickupHand](#pickuphand)                                            | currentHand                   | The hand that the player is holding the pickup with.                                                                                                                                                  |
+属性
+| 类型                                                                 | 名称                          | 摘要                                                                                                                   |
+| -------------------------------------------------------------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| [ForceMode](https://docs.unity3d.com/ScriptReference/ForceMode.html) | MomentumTransferMethod        | 定义碰撞力如何作用于被击中的 Rigidbody 对象，仅当 AllowCollisionTransfer 为 true 时生效                               |
+| bool                                                                 | DisallowTheft                 | 是否允许其他玩家从他人手中夺取拾取物                                                                                 |
+| [Transform](https://docs.unity3d.com/ScriptReference/Transform.html) | ExactGun                      | 若设置，持有位置使用 Exact Gun                                   |
+| [Transform](https://docs.unity3d.com/ScriptReference/Transform.html) | ExactGrip                     | 若设置，持有位置使用 Exact Grip                                  |
+| bool                                                                 | allowManipulationWhenEquipped | 当拾取物被持有时，玩家是否可以操作物体                                         |
+| [PickupOrientation](#pickuporientation)                              | orientation                   | 持有姿态（Any / Grip / Gun）                                           |
+| [AutoHoldMode](#autoholdmode)                                        | AutoHold                      | 拾取物松开抓取按钮后是否仍留在玩家手中                                  |
+| string                                                               | InteractionText               | 持有拾取物时的提示文字                                                   |
+| string                                                               | UseText                       | 鼠标悬停拾取物时的提示文字                                               |
+| float                                                                | ThrowVelocityBoostMinSpeed    | 投掷时最小速度阈值                                                      |
+| float                                                                | ThrowVelocityBoostScale       | 投掷速度倍率                                                            |
+| bool                                                                 | pickupable                    | 是否可拾取                                                              |
+| float                                                                | proximity                     | 玩家与拾取物最大交互距离                                                 |
+| [VRCPlayerApi](#vrcplayerapi)                                        | currentPlayer                 | 当前持有拾取物的玩家                                                      |
+| bool                                                                 | IsHeld                        | 拾取物是否被玩家持有                                                      |
+| [PickupHand](#pickuphand)                                            | currentHand                   | 玩家持有拾取物的手                                                       |
 
-#### Methods
-| Returns | Name                                                                  | Summary                                                                                                                                        |
-| ------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| void    | Drop()                                                                | Drops the pickup if it is being held by a player.                                                                                              |
-| void    | Drop([VRCPlayerApi](#vrcplayerapi) instigator)                        | Drops the pickup if it is being held by a player. Note that the pickup will only drop if `instigator` is the player who is holding the pickup. |
-| void    | GenerateHapticEvent(float duration, float amplitude, float frequency) | Plays haptic feedback on the player's controller. Default values are duration: 0.25, amplitude: 0.5, frequency: 0.5.                           |
-| void    | PlayHaptics()                                                         | Plays haptic feedback on the player's controller.                                                                                              |
+方法
+| 返回值 | 名称                                                                  | 摘要                                                                                  |
+| ------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| void    | Drop()                                                                | 玩家丢弃拾取物                                                                       |
+| void    | Drop([VRCPlayerApi](#vrcplayerapi) instigator)                        | 玩家丢弃拾取物，仅当 instigator 是当前持有玩家时生效                                  |
+| void    | GenerateHapticEvent(float duration, float amplitude, float frequency) | 在玩家手柄上产生触觉反馈，默认 duration=0.25，amplitude=0.5，frequency=0.5          |
+| void    | PlayHaptics()                                                         | 在玩家手柄上播放触觉反馈                                                              |
+
+---
 
 ### VRCPortalMarker
 `class VRC.SDK3.Components.VRCPortalMarker` / `class VRC.SDKBase.VRC_PortalMarker`
 
-A component used to create portals to other rooms.
+创建通往其他房间的传送门。
 
-#### Properties
-| Type   | Name   | Summary                          |
-| ------ | ------ | -------------------------------- |
-| string | roomId | Room Id of the destination room. |
+属性
+| 类型   | 名称   | 摘要                      |
+| ------ | ------ | ------------------------ |
+| string | roomId | 目标房间的 Id             |
 
-#### Methods
-| Returns | Name            | Summary                                       |
-| ------- | --------------- | --------------------------------------------- |
-| void    | RefreshPortal() | Refreshes the portal displayed to the player. |
+方法
+| 返回值 | 名称            | 摘要                                  |
+| ------- | --------------- | ------------------------------------ |
+| void    | RefreshPortal() | 刷新玩家看到的传送门                  |
 
+---
 
 ## Enums
 
 ### EventTiming
 `enum VRC.Udon.Common.Enums.EventTiming`
 
-| Name        | Summary                                                 |
-| ----------- | ------------------------------------------------------- |
-| Update      | The event is fired in during the `Update()` event.      |
-| LateUpdate  | The event is fired in during the `LateUpdate()` event.  |
-| FixedUpdate | The event is fired in during the `FixedUpdate()` event. |
+| 名称        | 摘要                              |
+| ----------- | -------------------------------- |
+| Update      | 在 Update() 时触发事件             |
+| LateUpdate  | 在 LateUpdate() 时触发事件         |
+| FixedUpdate | 在 FixedUpdate() 时触发事件        |
 
 ### Mobility
 `enum VRC.SDKBase.VRCStation.Mobility`
 
-| Name                 | Summary                                               |
-| -------------------- | ----------------------------------------------------- |
-| Mobile               | Allow users to move when seated in station            |
-| Immobilize           | Prevents user from moving                             |
-| ImmobilizeForVehicle | Same as Immobilized but optimized for moving stations |
+| 名称                 | 摘要                                  |
+| -------------------- | ------------------------------------ |
+| Mobile               | 允许玩家在座位上移动                  |
+| Immobilize           | 禁止玩家移动                          |
+| ImmobilizeForVehicle | 优化的 Immobilize，用于可移动座位       |
 
 ### NetworkEventTarget
 `enum VRC.Udon.Common.Interfaces.NetworkEventTarget`
 
-| Name  | Summary                     |
-| ----- | --------------------------- |
-| All   | All players in the instance |
-| Owner | Owner of the game object    |
+| 名称  | 摘要                     |
+| ----- | ----------------------- |
+| All   | 所有玩家                  |
+| Owner | 对象所有者                |
 
 ### SpawnOrientation
 `enum VRC.SDKBase.VRC_SceneDescriptor.SpawnOrientation`
 
-| Name                      | Summary                                                                                  |
-| ------------------------- | ---------------------------------------------------------------------------------------- |
-| Default                   | Use the VRChat default spawn behaviour (currently the same as AlignPlayerWithSpawnPoint) |
-| AlignPlayerWithSpawnPoint | Aligns player with the rotation of the spawn transform                                   |
-| AlignRoomWithSpawnPoint   | Aligns players room scale to be centered on spawn point                                  |
+| 名称                      | 摘要                                                |
+| ------------------------- | -------------------------------------------------- |
+| Default                   | 使用 VRChat 默认生成行为                               |
+| AlignPlayerWithSpawnPoint | 玩家旋转与 Spawn Transform 对齐                       |
+| AlignRoomWithSpawnPoint   | 玩家房间中心与 Spawn Transform 对齐                   |
 
 ### TrackingDataType
 `enum VRC.SDKBase.VRCPlayerApi.TrackingDataType`
 
-| Name      | Summary                               |
-| --------- | ------------------------------------- |
-| Head      | The player's head tracking data       |
-| LeftHand  | The player's left hand tracking data  |
-| RightHand | The player's right hand tracking data |
-| Origin    | The player's playspace origin         |
+| 名称      | 摘要                       |
+| --------- | ------------------------- |
+| Head      | 玩家头部跟踪数据           |
+| LeftHand  | 玩家左手跟踪数据           |
+| RightHand | 玩家右手跟踪数据           |
+| Origin    | 玩家空间原点数据           |
 
 ### VRCInputMethod
 `enum VRC.SDKBase.VRCInputMethod`
 
-| Name       | Value | Summary                                    |
-| ---------- | ----- | ------------------------------------------ |
-| Keyboard   | 0     | Keyboard input method                      |
-| Mouse      | 1     | Mouse input method                         |
-| Controller | 2     | Controller input method                    |
-| Gaze       | 3     | Gaze input method                          |
-| Vive       | 5     | Vive input method                          |
-| Oculus     | 6     | Oculus input method                        |
-| Count      | 7     | Maximum number of input methods available. |
+| 名称       | 值 | 摘要                  |
+| ---------- | --- | -------------------- |
+| Keyboard   | 0   | 键盘                  |
+| Mouse      | 1   | 鼠标                  |
+| Controller | 2   | 控制器                |
+| Gaze       | 3   | 注视                  |
+| Vive       | 5   | Vive 控制器           |
+| Oculus     | 6   | Oculus 控制器         |
+| Count      | 7   | 最大输入方式数量       |
 
 ### HandType
 `enum VRC.Udon.Common.HandType`
 
-| Name  | Summary    |
+| 名称  | 摘要        |
 | ----- | ---------- |
-| RIGHT | Right hand |
-| LEFT  | Left hand  |
+| RIGHT | 右手       |
+| LEFT  | 左手       |
 
 ### UdonInputEventType
 `enum VRC.Udon.Common.UdonInputEventType`
 
-| Name   | Summary      |
-| ------ | ------------ |
-| BUTTON | Button event |
-| AXIS   | Axis event   |
+| 名称   | 摘要          |
+| ------ | ------------- |
+| BUTTON | 按键事件       |
+| AXIS   | 轴事件         |
 
 ### VideoError
 `enum VRC.SDK3.Components.Video.VideoError`
 
-| Name         | Summary       |
+| 名称         | 摘要          |
 | ------------ | ------------- |
-| Unknown      | Unknown error |
-| InvalidURL   | Invalid URL   |
-| AccessDenied | Access Denied |
-| PlayerError  | Player Error  |
-| RateLimited  | Rate Limited  |
+| Unknown      | 未知错误       |
+| InvalidURL   | URL 无效       |
+| AccessDenied | 拒绝访问       |
+| PlayerError  | 播放器错误     |
+| RateLimited  | 请求过多       |
 
 ### AutoHoldMode
 `enum VRC.SDK3.Components.VRCPickup.AutoHoldMode` / `enum VRC.SDKBase.VRC_Pickup.AutoHoldMode`
 
-| Name       | Summary                                                                                                         |
-| ---------- | --------------------------------------------------------------------------------------------------------------- |
-| AutoDetect | Automatically detect which behaviour to apply.                                                                  |
-| Yes        | After the grab button is released the pickup remains in the hand until the drop button is pressed and released. |
-| No         | After the grab button is released the pickup is let go.                                                         |
+| 名称       | 摘要                                                                  |
+| ---------- | -------------------------------------------------------------------- |
+| AutoDetect | 自动检测适用行为                                                       |
+| Yes        | 松开抓取按钮后，拾取物仍留在手中，直到按下并松开放下按钮               |
+| No         | 松开抓取按钮后，拾取物立即释放                                       |
 
 ### PickupOrientation
 `enum VRC.SDK3.Components.VRCPickup.PickupOrientation` / `enum VRC.SDKBase.VRC_Pickup.PickupOrientation`
 
-| Name | Summary          |
+| 名称 | 摘要             |
 | ---- | ---------------- |
-| Any  | Any orientation  |
-| Grip | Grip orientation |
-| Gun  | Gun orientation  |
+| Any  | 任意方向         |
+| Grip | Grip 持握方向    |
+| Gun  | 枪械持握方向     |
 
 ### PickupHand
 `enum VRC.SDK3.Components.VRCPickup.PickupHand` / `enum VRC.SDKBase.VRC_Pickup.PickupHand`
 
-| Name  | Summary    |
-| ----- | ---------- |
-| None  | No hand    |
-| Left  | Left hand  |
-| Right | Right hand |
+| 名称  | 摘要      |
+| ----- | -------- |
+| None  | 无手     |
+| Left  | 左手     |
+| Right | 右手     |
 
 
-# Supported Features
 
-## Synced Variables
-These variables are available for syncing across the network with the [UdonSynced](https://udonsharp.docs.vrchat.com/udonsharp/#udonsynced) attribute.
+# 支持的功能
+
+## 同步变量 (Synced Variables)
+这些变量可通过 `[UdonSynced](https://udonsharp.docs.vrchat.com/udonsharp/#udonsynced)` 属性在网络上同步。
 ::: info
-In the lists below, 'size' refers to the **approximate** size in memory. When networked, the data is serialized, which may lead to more data being transmitted. For example, syncing a `bool` will send **at least** 1 byte of data (instead of 1 bit) in addition to any networking overhead.
-To find out how many bytes of serialized data were, use `byteCount` in the [`OnPostSerialization`](/creators.vrchat.com/worlds/udon/networking/network-components#onpostserialization) event. You can find more information about syncing on Udon's [Network Specs](/creators.vrchat.com/worlds/udon/networking/network-details#data-and-specs) page.
+下表中的 `size` 指**大致内存大小**。在网络传输中，这些数据会被序列化，可能会产生额外的数据开销。例如，`bool` 类型在同步时至少发送 1 字节（而不是 1 位），还会加上网络开销。  
+要查看实际序列化的数据字节数，可以使用 [`OnPostSerialization`](https://creators.vrchat.com/worlds/udon/networking/network-components#onpostserialization) 事件中的 `byteCount` 属性。更多同步信息，请参考 [Udon 网络规格](https://creators.vrchat.com/worlds/udon/networking/network-details#data-and-specs)。
 :::
-### Boolean  types
-| Type | Size   |
+
+**布尔类型 (Boolean types)**
+| 类型 | 大小   |
 | ---- | ------ |
 | bool | 1 byte |
-### Integral numeric types
-| Type   | Range                                                   | Size    |
-| ------ | ------------------------------------------------------- | ------- |
-| sbyte  | -128 to 127                                             | 1 byte  |
-| byte   | 0 to 255                                                | 1 byte  |
-| short  | -32,768 to 32,767                                       | 2 bytes |
-| ushort | 0 to 65,535                                             | 2 bytes |
-| int    | -2,147,483,648 to 2,147,483,647                         | 4 bytes |
-| uint   | 0 to 4,294,967,295                                      | 4 bytes |
+
+**整数类型 (Integral numeric types)**
+| 类型   | 范围                                                   | 大小    |
+| ------ | ----------------------------------------------------- | ------- |
+| sbyte  | -128 to 127                                           | 1 byte  |
+| byte   | 0 to 255                                              | 1 byte  |
+| short  | -32,768 to 32,767                                     | 2 bytes |
+| ushort | 0 to 65,535                                           | 2 bytes |
+| int    | -2,147,483,648 to 2,147,483,647                       | 4 bytes |
+| uint   | 0 to 4,294,967,295                                    | 4 bytes |
 | long   | -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 | 8 bytes |
-| ulong  | 0 to 18,446,744,073,709,551,615                         | 8 bytes |
-### Floating-point numeric types
-| Type   | Approximate range                   | Precision     | Size    |
-| ------ | ----------------------------------- | ------------- | ------- |
-| float  | ±1.5 x 10^(−45) to ±3.4 x 10^(38)   | ~6-9 digits   | 4 bytes |
-| double | ±5.0 × 10^(−324) to ±1.7 × 10^(308) | ~15-17 digits | 8 bytes |
-### Vector mathematics types and structures (Unity)
-| Type                                                                   | Range         | Size     |
-| ---------------------------------------------------------------------- | ------------- | -------- |
-| [Vector2](https://docs.unity3d.com/ScriptReference/Vector2.html)       | same as float | 8 bytes  |
-| [Vector3](https://docs.unity3d.com/ScriptReference/Vector3.html)       | same as float | 12 bytes |
-| [Vector4](https://docs.unity3d.com/ScriptReference/Vector4.html)       | same as float | 16 bytes |
-| [Quaternion](https://docs.unity3d.com/ScriptReference/Quaternion.html) | same as float | 16 bytes |
-### Color structures
-| Type                                                             | Range / Precision | Size     |
-| ---------------------------------------------------------------- | ----------------- | -------- |
-| [Color](https://docs.unity3d.com/ScriptReference/Color.html)     | same as float     | 16 bytes |
-| [Color32](https://docs.unity3d.com/ScriptReference/Color32.html) | same as byte      | 4 bytes  |
-### Text types and structures
-| Type   | Range            | Size           |
-| ------ | ---------------- | -------------- |
-| char   | U+0000 to U+FFFF | 2 bytes        |
-| string | same as char     | 2 bytes / char |
-### Other structures
-| Type              | Range            | Size           |
-| ----------------- | ---------------- | -------------- |
-| [VRCUrl](#vrcurl) | U+0000 to U+FFFF | 2 bytes / char |
+| ulong  | 0 to 18,446,744,073,709,551,615                       | 8 bytes |
+
+**浮点类型 (Floating-point numeric types)**
+| 类型   | 大致范围                       | 精度         | 大小    |
+| ------ | ------------------------------- | ------------ | ------- |
+| float  | ±1.5 × 10^(−45) 到 ±3.4 × 10^(38) | ~6-9 位数字  | 4 bytes |
+| double | ±5.0 × 10^(−324) 到 ±1.7 × 10^(308) | ~15-17 位数字 | 8 bytes |
+
+**向量类型和结构 (Vector mathematics types, Unity)**
+| 类型 | 范围       | 大小   |
+| ---- | --------- | ------ |
+| [Vector2](https://docs.unity3d.com/ScriptReference/Vector2.html)       | 同 float | 8 bytes  |
+| [Vector3](https://docs.unity3d.com/ScriptReference/Vector3.html)       | 同 float | 12 bytes |
+| [Vector4](https://docs.unity3d.com/ScriptReference/Vector4.html)       | 同 float | 16 bytes |
+| [Quaternion](https://docs.unity3d.com/ScriptReference/Quaternion.html) | 同 float | 16 bytes |
+
+**颜色结构 (Color structures)**
+| 类型 | 范围 / 精度 | 大小 |
+| ---- | ----------- | ---- |
+| [Color](https://docs.unity3d.com/ScriptReference/Color.html)     | 同 float | 16 bytes |
+| [Color32](https://docs.unity3d.com/ScriptReference/Color32.html) | 同 byte  | 4 bytes  |
+
+**文本类型和结构 (Text types and structures)**
+| 类型   | 范围          | 大小           |
+| ------ | ------------- | -------------- |
+| char   | U+0000 到 U+FFFF | 2 bytes        |
+| string | 同 char       | 2 bytes / 字符 |
+
+**其他结构 (Other structures)**
+| 类型              | 范围         | 大小           |
+| ----------------- | ------------ | -------------- |
+| [VRCUrl](#vrcurl) | U+0000 到 U+FFFF | 2 bytes / 字符 |

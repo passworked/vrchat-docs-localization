@@ -1,68 +1,73 @@
 ---
-UpstreamCommit: c232baae74a772050a1a4be1a576f54ee98ad189
+UpstreamCommit: f1bf1da95129772851a2ddf4840a99de14271ff8
 ---
 
-# Migration
+# 迁移
 
-UdonSharp 0.x (the .unitypackage version) is deprecated and no longer supported. This new version is easy to get through the [Creator Companion](https://vcc.docs.vrchat.com), which will help you keep it up-to-date as well. We recommend you [Migrate your Projects using the Creator Companion](https://vcc.docs.vrchat.com/vpm/migrating). If you want to do the migration manually, read [Manual Migration](#manual-migration).
+UdonSharp 0.x（.unitypackage 版本）已被弃用，不再支持。  
+新版本可以通过 [Creator Companion](https://vcc.docs.vrchat.com) 轻松获取，同时它会帮助你保持更新。  
+我们推荐使用 [Creator Companion 迁移你的项目](https://vcc.docs.vrchat.com/vpm/migrating)。  
+如果你希望手动迁移，请阅读 [手动迁移](#manual-migration)。
 
-## New Features in UdonSharp 1.0
-* **More C# features** in your UdonSharp programs:
-	* `static` methods
-	* Generic `static` methods
-	* `params`, `out`, `ref`, and default parameters
-	* Extension methods
-	* Inheritance, virtual methods, and abstract classes
-	* Partial classes
-	* Enums
-- **Multi-edit** multiple UdonSharp scripts in the Unity inspector
-- **Prefab variants**, **instances**, and **nesting** are now fully supported
-- **Editor scripting** has been overhauled and simplified
-- **Compiler fixes** and **optimizations**
-- **Fixed various bugs**, edge cases, and other rough edges
+## UdonSharp 1.0 的新功能
+* **更多 C# 功能** 可在 UdonSharp 脚本中使用：
+	* `static` 方法
+	* 泛型 `static` 方法
+	* `params`、`out`、`ref` 和默认参数
+	* 扩展方法
+	* 继承、虚方法和抽象类
+	* 部分类（Partial class）
+	* 枚举（Enum）
+- **多选编辑**：可在 Unity Inspector 中同时编辑多个 UdonSharp 脚本
+- **Prefab 变体**、**实例化** 及 **嵌套** 现已完全支持
+- **编辑器脚本** 已重构并简化
+- **编译器修复** 与 **优化**
+- 修复了各种 **bug**、边缘情况以及其他问题
 
-## Known Issues
+## 已知问题
 
-### Nested Prefabs
+### 嵌套 Prefab
 
-**Issue**: UdonSharp always warned against using nested prefabs, and now they will completely break in some circumstances.
+**问题**：UdonSharp 以前总是警告不要使用嵌套 Prefab，现在在某些情况下会彻底失效。
 
-**Symptoms**: Errors like `Cannot upgrade scene behaviour 'SomethingOrOther' since its prefab must be upgraded`
+**表现**：错误信息类似 `Cannot upgrade scene behaviour 'SomethingOrOther' since its prefab must be upgraded`
 
-**How to Fix**: Unpack the prefab in your 0.x UdonSharp project first. You can also open the "Udon Sharp" menu item and choose "Force Upgrade".
+**解决方法**：先在 0.x UdonSharp 项目中解包 Prefab。  
+你也可以打开 "Udon Sharp" 菜单，选择 "Force Upgrade"。
 
-### Does Not Belong to U# Assembly
+### 不属于 U# Assembly
 
-**Issue**: Libraries with their own Assembly Definitions need to have an U# assembly definition, too.
+**问题**：带有自己 Assembly Definition 的库，也需要创建对应的 U# Assembly Definition。
 
-**Symptoms**: An error like this: `[UdonSharp] Script 'Assets/MyScript.cs' does not belong to a U# assembly, have you made a U# assembly definition for the assembly the script is a part of?`
+**表现**：错误信息类似 `[UdonSharp] Script 'Assets/MyScript.cs' does not belong to a U# assembly, have you made a U# assembly definition for the assembly the script is a part of?`
 
-**How to Fix**:
-1. Use the Project window to find the file ending in `.asmdef` in the same or a parent directory of the script in question. 
-2. Right-click in the folder which has this Assembly Definition and choose `Create > U# Assembly Definition`. 
-3. Select this new U# asmdef, and use the inspector to set its "Source Assembly" to the other Assembly Definition File. 
-4. You may need to restart Unity after doing this.
+**解决方法**：
+1. 在 Project 窗口中找到脚本所在目录或父目录中以 `.asmdef` 结尾的文件。
+2. 在该目录右键选择 `Create > U# Assembly Definition`。
+3. 选择新建的 U# asmdef，在 Inspector 中将 “Source Assembly” 设置为其他 Assembly Definition 文件。
+4. 完成后可能需要重启 Unity。
 
 ### Newtonsoft.Json.Dll
 
-**Issue**: Some packages include their own copy of this JSON library, which the VRCSDK pulls in itself. This results in two copies of the library.
+**问题**：某些包自带 JSON 库副本，而 VRCSDK 也会引入该库，导致库重复。
 
-**Symptoms**: Errors in your console which mention the above library. It might not be at the front of the sentence, but something like `System.TypeInitializationException: the type initializer for blah blah blah...Assets/SketchfabForUnity/Dependencies/Libraries/Newtonsoft.Json.dll`
+**表现**：控制台出现与该库相关的错误。例如：
+`System.TypeInitializationException: the type initializer for blah blah blah...Assets/SketchfabForUnity/Dependencies/Libraries/Newtonsoft.Json.dll`
 
-**How to Fix**: Remove any copies of Newtonsoft.Json.dll from your Assets folder. The VRCSDK will provide it for any package that needs it through the Package Manager.
+**解决方法**：删除 Assets 文件夹中所有 Newtonsoft.Json.dll 副本，VRCSDK 会通过 Package Manager 为需要的包提供该库。
 
-### Other breaking changes
-- Your U# behaviour name must match the .cs file name
-- Duplicate program assets may not reference the same `.cs` file
-- Program assets must point to a script and may not be empty
-- Editor scripting is now different: Data is owned by a C# proxy of the UdonSharpBehaviour, and the corresponding UdonBehaviour is empty until runtime.
-- Obsoleted overloads for station and player join events may no longer be used
+### 其他破坏性更改
+- U# 行为名称必须与 .cs 文件名匹配
+- 重复的 Program Asset 不可引用相同的 `.cs` 文件
+- Program Asset 必须指向脚本，不可为空
+- 编辑器脚本机制已更改：数据由 UdonSharpBehaviour 的 C# 代理拥有，对应的 UdonBehaviour 在运行时前为空
+- station 和 player join 事件的过时重载不可再使用
 
-## Manual Migration
+## 手动迁移
 
-Follow these steps to upgrade a project that uses a version of UdonSharp below 1.0 without using the Creator Companion:
+若不使用 Creator Companion 升级低于 1.0 的 UdonSharp 项目，请按以下步骤操作：
 
-1. Back up your project.
-2. Delete the VRCSDK folder, Udon folder, UdonSharp folder, and Gizmos/UdonSharp folders from your project's "Assets" folder.
-3. Download and install the [Unity Package versions of the World SDK](https://vrchat.com/download/sdk3-worlds).
-4. Download and install the [Unity Package version of the UdonSharp SDK](https://github.com/vrchat-community/UdonSharp/releases/download/1.1.7/com.vrchat.udonsharp-1.1.7.unitypackage).
+1. 备份项目。
+2. 删除项目 `Assets` 文件夹中的 VRCSDK、Udon、UdonSharp 以及 Gizmos/UdonSharp 文件夹。
+3. 下载并安装 [Unity Package 版本的 World SDK](https://vrchat.com/download/sdk3-worlds)。
+4. 下载并安装 [Unity Package 版本的 UdonSharp SDK](https://github.com/vrchat-community/UdonSharp/releases/download/1.1.7/com.vrchat.udonsharp-1.1.7.unitypackage)。
